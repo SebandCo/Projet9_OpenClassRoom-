@@ -31,5 +31,8 @@ urlpatterns = [
     # URL d'inscription
     path("inscription/", authentication.views.inscription_page, name="inscription"),
     # URL page personnel
-    path("home/page_personnel/", connected.views.page_personnel, name="page_personnel")
+    path("home/page_personnel/", connected.views.page_personnel, name="page_personnel"),
+    # URL création de ticket et critique
+    path("blog/creation_ticket/", blog.views.creation_ticket, name="creation_ticket"),
+    path("blog/creation_critique/", blog.views.creation_critique, name="creation_critique"),
 ]

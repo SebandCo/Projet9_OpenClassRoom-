@@ -1,0 +1,17 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Création de ticket
+{% endblock en-tete %}
+
+{% block content %}
+    <h2>Ici la création de ticket</h2>
+    <form method="post" enctype="multipart/form-data">
+        <!-- On rajoute le formulaire de création de ticket -->
+        {{ticket_form.as_p}}
+        <!-- On rajoute le formulaire de création de image -->
+        {{image_form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Publier</button>
+    </form>
+{% endblock content %}

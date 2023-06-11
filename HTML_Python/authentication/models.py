@@ -13,7 +13,7 @@ class User(AbstractUser):
     )
 
     nombre_ticket = models.fields.IntegerField(default=0,
-                                             verbose_name="Nombre de ticket")
+                                               verbose_name="Nombre de ticket")
     nombre_critique = models.fields.IntegerField(default=0,
                                                  verbose_name="Nombre de critique")
     role = models.CharField(max_length=30,
