@@ -1,0 +1,61 @@
+.haut-de-page{
+    text-align: center;
+    background-color: aquamarine;
+}
+
+.barre-laterale{
+    position: fixed;
+    height: 100%;
+    width: $taille-menu;
+    top: $hauteur-en-tete; 
+    left: 0;
+    background-color: #1d3030;
+    color:  #ffffe6;
+    padding-top: $marge-menu + 1em;
+    padding-left: $marge-menu;
+    padding-right: $marge-menu;
+}
+
+.contenu-principal{
+    position: fixed;
+    left:$taille-menu + 0.5em;
+}
+
+.bouton{
+    background: none;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    @include couleur-bouton(black);
+    display: block;
+    font-weight: bold;
+    margin: 1em 0.5em 1em 0.5em;
+    padding: 0.5em;
+    position: relative;
+    text-align: center;
+}
+
+.bouton::after {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+.bouton::before,
+.bouton::after {
+    background: #fff;
+    content: "";
+    position: absolute;
+    z-index: -1;
+  }
+.bouton:hover {
+    color: black;
+  }
+.bouton::after {
+    height: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+.bouton:hover:after {
+    height: 100%;
+  }

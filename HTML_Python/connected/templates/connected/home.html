@@ -1,0 +1,9 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    bienvenu {{ request.user }}
+{% endblock en-tete %}
+
+{% block content %}
+    <p>Vous êtes connecté !</p>
+{% endblock content %}

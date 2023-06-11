@@ -1,0 +1,15 @@
+.tableau-mon-profil{
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid purple;
+    th:nth-child(1) {
+        width: auto;
+    }
+    th:nth-child(2) {
+        width: auto;
+    }
+    th, td {
+        padding: 1em;
+    }
+}

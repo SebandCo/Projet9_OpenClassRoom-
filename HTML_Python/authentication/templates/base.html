@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>LITReview</title>
+        <link href="{% static 'main.css'%}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="haut-de-page">
+            <h1>
+                LITReview
+                {% block en-tete %}{% endblock en-tete %}
+            </h1>
+        </header>
+
+        {% block content %}{% endblock content %}
+    </body>
+</html>

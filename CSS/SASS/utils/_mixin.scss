@@ -1,0 +1,14 @@
+@mixin bordure-connexion{
+    width:30em;
+    height : 10em;
+    margin:auto;
+    border:groove;
+}
+
+@mixin couleur-bouton($couleur){
+    @if (lightness($couleur)<25%){
+        color : white;}
+    @else{
+        color : black;}
+    }
+ 

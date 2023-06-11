@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block en-tete %}
+    bienvenu
+{% endblock en-tete %}
+
+{% block content %}
+<p>{{ message }}</p>
+    <section class="connexion_principale">
+        <div id="inscription">    
+            <p>Pas encore membre ?<p></p>
+            <p>
+                <a href="{% url 'inscription' %}">Inscrivez-vous maintenant !</a>
+            </p>
+        </div>
+        <div id="connexion">
+            <form method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button class="bouton" type="submit" >Se connecter</button>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

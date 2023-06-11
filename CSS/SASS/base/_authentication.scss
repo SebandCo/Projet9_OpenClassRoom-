@@ -1,0 +1,16 @@
+.connexion_principale{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 5px;}
+    #connexion{
+        @include bordure-connexion;
+    }
+    #inscription{
+        @include bordure-connexion;
+    }
+
+@media (max-width : 980px){
+    .connexion_principale{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;}}

@@ -1,1 +1,108 @@
-/*# sourceMappingURL=main.css.map */
+.connexion_principale {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 5px;
+}
+
+#connexion {
+  width: 30em;
+  height: 10em;
+  margin: auto;
+  border: groove;
+}
+
+#inscription {
+  width: 30em;
+  height: 10em;
+  margin: auto;
+  border: groove;
+}
+
+@media (max-width: 980px) {
+  .connexion_principale {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+.haut-de-page {
+  text-align: center;
+  background-color: aquamarine;
+}
+
+.barre-laterale {
+  position: fixed;
+  height: 100%;
+  width: 15em;
+  top: 3em;
+  left: 0;
+  background-color: #1d3030;
+  color: #ffffe6;
+  padding-top: 1.2em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+}
+
+.contenu-principal {
+  position: fixed;
+  left: 15.5em;
+}
+
+.bouton {
+  background: none;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: white;
+  display: block;
+  font-weight: bold;
+  margin: 1em 0.5em 1em 0.5em;
+  padding: 0.5em;
+  position: relative;
+  text-align: center;
+}
+
+.bouton::after {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.bouton::before,
+.bouton::after {
+  background: #fff;
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+.bouton:hover {
+  color: black;
+}
+
+.bouton::after {
+  height: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.bouton:hover:after {
+  height: 100%;
+}
+
+.tableau-mon-profil {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
+}
+.tableau-mon-profil th:nth-child(1) {
+  width: auto;
+}
+.tableau-mon-profil th:nth-child(2) {
+  width: auto;
+}
+.tableau-mon-profil th, .tableau-mon-profil td {
+  padding: 1em;
+}/*# sourceMappingURL=main.css.map */

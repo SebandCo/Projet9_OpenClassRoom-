@@ -1,0 +1,33 @@
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>LITReview</title>
+        <link href="{% static 'main.css'%}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="haut-de-page">
+            <h1>
+                LITReview - 
+                {% block en-tete %}{% endblock en-tete %}
+            </h1>
+        </header>
+
+        <nav class="barre-laterale">    
+            <p>
+                Vous êtes connecté en tant que <br />{{ request.user }}
+            </p>
+            <p>
+                <a class="bouton" href="{% url 'home' %}">Page de démarrage</a>
+                <a class="bouton" href="{% url 'page_personnel' %}">Voir mon profil</a>
+                <a class="bouton" href="{% url 'logout' %}">Créer un ticket</a>
+                <a class="bouton" href="{% url 'logout' %}">Créer une critique</a>
+                <a class="bouton" href="{% url 'logout' %}">Se déconnecter</a>
+            </p>
+        </nav>
+
+        <main class="contenu-principal">
+            {% block content %}{% endblock content %}
+        </main>
+    </body>
+</html>
