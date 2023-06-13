@@ -9,8 +9,8 @@
     <form method="post" enctype="multipart/form-data">
         <!-- On rajoute le formulaire de création de ticket -->
         {{ticket_form.as_p}}
-        <!-- On rajoute le formulaire de création de image -->
-        {{image_form.as_p}}
+        <!-- On rajoute le formulaire de création de l'illustration -->
+        {{illustration_form.as_p}}
         {% csrf_token %}
         <button type="submit">Publier</button>
     </form>

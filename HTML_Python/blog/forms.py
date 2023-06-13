@@ -8,15 +8,15 @@ class TicketForm(forms.ModelForm):
                                      initial=True)
     class Meta :
         model = models.Ticket
-        exclude = ("date_created","auteur")
+        exclude = ("date_created","auteur","illustration")
 
 class DeleteTicketForm(forms.Form):
     # Permet la suppression du ticket
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput,
                                      initial=True)
 
-
-class ImageForm(forms.ModelForm):
+# Formulaire pour l'illustration'
+class IllustrationForm(forms.ModelForm):
     class Meta :
-        model = models.Image
-        fields = ["image"]
+        model = models.Illustration
+        fields = ["illustration"]

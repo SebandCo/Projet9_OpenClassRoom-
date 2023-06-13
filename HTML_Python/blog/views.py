@@ -5,25 +5,25 @@ from . import forms, models
 @login_required
 def creation_ticket(request):
     ticket_form = forms.TicketForm
-    image_form = forms.ImageForm
+    illustration_form = forms.IllustrationForm
     if request.method == "POST":
         ticket_form= forms.TicketForm(request.POST)
-        image_form = forms.ImageForm(request.POST, request.FILES)
+        illustration_form = forms.IllustrationForm(request.POST, request.FILES)
         # On vérifie que le formulaire est valide
         if all([ticket_form.is_valid(),
-                image_form.is_valid()]):
-            # On sauvegarde la image
-            image = image_form.save(commit=False)
-            image.auteur = request.user
-            image.save()
-            # On sauvegarde l'image avec le ticket
+                illustration_form.is_valid()]):
+            # On sauvegarde l'illustration
+            illustration = illustration_form.save(commit=False)
+            illustration.auteur = request.user
+            illustration.save()
+            # On sauvegarde l'illustration avec le ticket
             ticket = ticket_form.save(commit=False)
             ticket.auteur = request.user
-            ticket.image = image
+            ticket.illustration = illustration
             ticket.save()
             return redirect("home")
     context ={"ticket_form": ticket_form,
-              "image_form": image_form}
+              "illustration_form": illustration_form}
     return render(request,
                   "blog/creation_ticket.html",
                   context = context)

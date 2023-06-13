@@ -2,38 +2,38 @@ from django.conf import settings
 from django.db import models
 from PIL import Image
 
-# Classe pour les images
-class Image(models.Model):
-    image = models.ImageField()
+# Classe pour les illustrations
+class Illustration(models.Model):
+    illustration = models.ImageField()
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
                                  on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
     # Constance de classe pour plus de clarté
-    IMAGE_MAX_SIZE = (800, 800)
+    ILLUSTRATIONS_MAX_SIZE = (800, 800)
 
     # Methode de redimmensionnement
-    def resize_image(self):
-        # Ouverture de l'image
-        image = Image.open(self.image)
-        # Redimmensionnement de l'image
-        image.thumbnail(self.IMAGE_MAX_SIZE)
-        # Sauvegarde en utilisant le chemin de l'image
-        image.save(self.image.path)
+    def resize_illustration(self):
+        # Ouverture de l'illustration
+        illustration = Image.open(self.illustration)
+        # Redimmensionnement de l'illustration
+        illustration.thumbnail(self.ILLUSTRATIONS_MAX_SIZE)
+        # Sauvegarde en utilisant le chemin de l'illustration
+        illustration.save(self.illustration.path)
 
-    # Méthode super pour sauvegarder les images
+    # Méthode super pour sauvegarder les illustrations
     def save(self,*arg, **kwargs):
         # Pour la compatibilité avec la classe parent
         super().save(*arg,**kwargs)
         # Appel de la méthode de redimmensionnement
-        self.resize_image()
+        self.resize_illustration()
 
 # Classe pour les critiques
 class Critique(models.Model):
-    image = models.ForeignKey(Image,
-                              null=True,
-                              on_delete=models.SET_NULL,
-                              blank=True)
+    illustration = models.ForeignKey(Illustration,
+                                     null=True,
+                                     on_delete=models.SET_NULL,
+                                     blank=True)
     titre = models.CharField(max_length=128)
     description = models.CharField(max_length=5000)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -43,10 +43,10 @@ class Critique(models.Model):
 
 # Classe pour les tickets
 class Ticket(models.Model):
-    image = models.ForeignKey(Image,
-                              null=True,
-                              on_delete=models.SET_NULL,
-                              blank=True)
+    illustration = models.ForeignKey(Illustration,
+                                     null=True,
+                                     on_delete=models.SET_NULL,
+                                     blank=True)
     titre = models.CharField(max_length=128)
     description = models.CharField(max_length=5000)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
