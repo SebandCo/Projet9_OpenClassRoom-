@@ -5,5 +5,10 @@
 {% endblock en-tete %}
 
 {% block content %}
-    <h2> Ici la création de critique</h2>
+    <form method="post" enctype="multipart/form-data" class="blog" class="creation-critique">
+        <!-- On rajoute le formulaire de création de critique -->
+        {{critique_form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Publier</button>
+    </form>
 {% endblock content %}

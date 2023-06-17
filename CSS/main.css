@@ -4,6 +4,43 @@
   grid-template-rows: 1fr;
   gap: 5px;
 }
+.connexion_principale .bouton {
+  background: none;
+  border-radius: 10px;
+  color: black;
+  border: 2px solid black;
+  display: block;
+  font-weight: bold;
+  margin: 1em 0.5em 1em 0.5em;
+  padding: 0.5em;
+  position: relative;
+  text-align: center;
+}
+.connexion_principale .bouton::after {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.connexion_principale .bouton::before,
+.connexion_principale .bouton::after {
+  background: black;
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+.connexion_principale .bouton:hover {
+  color: white;
+}
+.connexion_principale .bouton::after {
+  height: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.connexion_principale .bouton:hover:after {
+  height: 100%;
+}
 
 #connexion {
   width: 30em;
@@ -42,17 +79,11 @@
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
-
-.contenu-principal {
-  position: fixed;
-  left: 15.5em;
-}
-
-.bouton {
+.barre-laterale .bouton {
   background: none;
-  border: 2px solid #fff;
   border-radius: 10px;
   color: white;
+  border: 2px solid white;
   display: block;
   font-weight: bold;
   margin: 1em 0.5em 1em 0.5em;
@@ -60,35 +91,36 @@
   position: relative;
   text-align: center;
 }
-
-.bouton::after {
+.barre-laterale .bouton::after {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-
-.bouton::before,
-.bouton::after {
-  background: #fff;
+.barre-laterale .bouton::before,
+.barre-laterale .bouton::after {
+  background: white;
   content: "";
   position: absolute;
   z-index: -1;
 }
-
-.bouton:hover {
+.barre-laterale .bouton:hover {
   color: black;
 }
-
-.bouton::after {
+.barre-laterale .bouton::after {
   height: 0;
   left: 0;
   top: 0;
   width: 100%;
 }
-
-.bouton:hover:after {
+.barre-laterale .bouton:hover:after {
   height: 100%;
+}
+
+.contenu-principal {
+  position: fixed;
+  left: 15.5em;
+  width: 100%;
 }
 
 .tableau-mon-profil {
@@ -105,4 +137,28 @@
 }
 .tableau-mon-profil th, .tableau-mon-profil td {
   padding: 1em;
+}
+
+.contenu-principal {
+  width: 70%;
+  margin: 0.4em;
+}
+
+.blog {
+  display: flex;
+  flex-direction: column;
+}
+.blog p {
+  display: flex;
+  flex-direction: column;
+}
+.blog p label {
+  color: blue;
+  text-align: center;
+}
+.blog p input {
+  align-items: center;
+}
+.blog p #id_description {
+  height: 10em;
 }/*# sourceMappingURL=main.css.map */

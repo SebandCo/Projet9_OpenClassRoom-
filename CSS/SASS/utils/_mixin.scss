@@ -7,8 +7,61 @@
 
 @mixin couleur-bouton($couleur){
     @if (lightness($couleur)<25%){
-        color : white;}
+        color : white;
+        border: 2px solid white;}
     @else{
-        color : black;}
+        color : black;
+        border: 2px solid black}
     }
- 
+
+@mixin couleur-background-bouton($couleur){
+    @if (lightness($couleur)<25%){
+        background: white;}
+    @else{
+        background: black;}
+    }    
+
+@mixin flex-colonne{
+    display:flex;
+    flex-direction: column;
+}
+
+@mixin mise-en-forme-bouton($couleur){
+    .bouton{
+        background: none;
+        border-radius: 10px;
+        @include couleur-bouton($couleur);
+        display: block;
+        font-weight: bold;
+        margin: 1em 0.5em 1em 0.5em;
+        padding: 0.5em;
+        position: relative;
+        text-align: center;
+    }
+    
+    .bouton::after {
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        transition: all 0.2s;
+      }
+    .bouton::before,
+    .bouton::after {
+        @include couleur-background-bouton($couleur);
+        content: "";
+        position: absolute;
+        z-index: -1;
+      }
+    .bouton:hover {
+        color: $couleur;
+      }
+    .bouton::after {
+        height: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    .bouton:hover:after {
+        height: 100%;
+      }
+}

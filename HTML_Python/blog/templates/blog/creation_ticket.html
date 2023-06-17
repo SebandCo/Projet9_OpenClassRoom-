@@ -5,12 +5,9 @@
 {% endblock en-tete %}
 
 {% block content %}
-    <h2>Ici la création de ticket</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="blog" class="creation-ticket">
         <!-- On rajoute le formulaire de création de ticket -->
         {{ticket_form.as_p}}
-        <!-- On rajoute le formulaire de création de l'illustration -->
-        {{illustration_form.as_p}}
         {% csrf_token %}
         <button type="submit">Publier</button>
     </form>

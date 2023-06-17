@@ -1,0 +1,20 @@
+.contenu-principal{
+    width:70%;
+    margin:0.4em;
+}
+.blog{
+    @include flex-colonne;
+    p{
+        @include flex-colonne;
+        label{
+            color:blue;
+            text-align: center;
+        }
+        input{
+            align-items: center;
+        }
+        #id_description{
+            height:10em;
+        }
+    }
+}

@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
 class SignupForm(UserCreationForm):
+    edit_user = forms.BooleanField(widget=forms.HiddenInput,
+                                   initial=True)
     class Meta(UserCreationForm.Meta):
         # Import du modèle User 
         model = get_user_model()
@@ -14,6 +16,15 @@ class SignupForm(UserCreationForm):
                   "last_name",
                   "role"]
 
+class MAJParticipation():
+    edit_user = forms.BooleanField(widget=forms.HiddenInput,
+                                   initial=True)
+    class Meta(UserCreationForm.Meta):
+        # Import du modèle User 
+        model = get_user_model()
+        # Ne selectionne que le nombre de critique et de ticket
+        fields = ["nombre_critique",
+                  "nombre_ticket"]
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63,

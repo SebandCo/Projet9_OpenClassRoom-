@@ -1,13 +1,19 @@
 from django.conf import settings
 from django.db import models
 from PIL import Image
+from django import forms
 
-# Classe pour les illustrations
-class Illustration(models.Model):
-    illustration = models.ImageField()
+# Classe pour les tickets
+class Ticket(models.Model):
+    titre = models.CharField(max_length=128)
+    description = models.TextField(max_length=2048,
+                                   blank=True)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                 on_delete=models.CASCADE)
-    date_created = models.DateTimeField(auto_now_add=True)
+                               default="Demandeur inconnu",
+                               on_delete=models.SET_DEFAULT)
+    illustration = models.ImageField(null=True,
+                                     blank=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
 
     # Constance de classe pour plus de clarté
     ILLUSTRATIONS_MAX_SIZE = (800, 800)
@@ -27,29 +33,23 @@ class Illustration(models.Model):
         super().save(*arg,**kwargs)
         # Appel de la méthode de redimmensionnement
         self.resize_illustration()
+    
+    def __str__(self):
+        return f'{self.titre}'
 
 # Classe pour les critiques
 class Critique(models.Model):
-    illustration = models.ForeignKey(Illustration,
-                                     null=True,
-                                     on_delete=models.SET_NULL,
-                                     blank=True)
-    titre = models.CharField(max_length=128)
-    description = models.CharField(max_length=5000)
+    ticket = models.ForeignKey(Ticket,
+                               on_delete=models.CASCADE)
+    note = models.PositiveSmallIntegerField(choices = ((0, '0'),
+                                                       (1, '1'),
+                                                       (2, '2'),
+                                                       (3, '3'),
+                                                       (4, '4'),
+                                                       (5, '5')),
+                                            default = 0)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               default="Auteur inconnu",
-                               on_delete=models.SET_DEFAULT)
-    date_created = models.DateTimeField(auto_now_add=True)
-
-# Classe pour les tickets
-class Ticket(models.Model):
-    illustration = models.ForeignKey(Illustration,
-                                     null=True,
-                                     on_delete=models.SET_NULL,
-                                     blank=True)
+                               on_delete=models.CASCADE)
     titre = models.CharField(max_length=128)
-    description = models.CharField(max_length=5000)
-    auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
-                               default="Auteur inconnu",
-                               on_delete=models.SET_DEFAULT)
-    date_created = models.DateTimeField(auto_now_add=True)
+    commentaire = models.CharField(max_length=8192)
+    date_creation = models.DateTimeField(auto_now_add=True)
