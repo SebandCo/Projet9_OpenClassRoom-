@@ -23,35 +23,3 @@ class CritiqueForm(forms.ModelForm):
         model = models.Critique
         exclude = ("date_creation","auteur")
         widgets = {'note': forms.RadioSelect()}
-
-
-class CritiqueTitre(forms.ModelForm):
-    class Meta :
-        model = models.Critique
-        fields = ["titre"]
-
-class CritiqueCommentaire(forms.ModelForm):
-    class Meta :
-        model = models.Critique
-        fields = ["commentaire"]
-
-# Formulaire pour la critique
-class CritiqueForm2(forms.ModelForm):
-    # Permet la modification du ticket
-    edit_critique = forms.BooleanField(widget=forms.HiddenInput,
-                                       initial=True)
-    class Meta :
-        model = models.Critique
-        fields = ["note"]
-
-# Formulaire pour la mise à jour du nombre de post(critique ou ticket)
-class MAJPost(forms.ModelForm):
-    edit_critique = forms.BooleanField(widget=forms.HiddenInput,
-                                       initial=True)
-    class Meta:
-        model = get_user_model()
-        fields = ["nombre_critique"]
-
-
-
-
