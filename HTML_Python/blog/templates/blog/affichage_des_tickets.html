@@ -1,0 +1,27 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Affichage des tickets
+{% endblock en-tete %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="blog" class="affichage_ticket">
+        <!-- On rajoute le formulaire de création de critique -->
+        <table>
+            <tr>
+                <th>Titre du livre</th>
+                <th>Nombre de critique</th>
+                <th>Lien</th>
+            </tr>
+            <tr>
+                {%for ticket in tickets %}
+                    <tr>
+                        <td>{{ticket.titre}}</td>
+                        <td>{{ticket.nombre_critique}}</td>
+                        <td> <a href="{% url 'affichage_dun_ticket' ticket.id %}">Aperçu</td>
+                    </tr>
+                {% endfor %}
+            </tr>
+        </table>
+    </form>
+{% endblock content %}

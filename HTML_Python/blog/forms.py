@@ -10,15 +10,14 @@ class TicketForm(forms.ModelForm):
                                      initial=True)
     class Meta :
         model = models.Ticket
-        exclude = ("date_creation","auteur")
+        exclude = ("date_creation","auteur","nombre_critique")
 
-# Ensemble de formulaire pour la partie critique
-# Permet la modification du ticket
-edit_critique = forms.BooleanField(widget=forms.HiddenInput,
-                                   initial=True)
-
+# Formulaire pour la partie critique
 # Formulaire pour la critique
 class CritiqueForm(forms.ModelForm):
+    # Permet la modification du ticket
+    edit_critique = forms.BooleanField(widget=forms.HiddenInput,
+                                   initial=True)
     class Meta :
         model = models.Critique
         exclude = ("date_creation","auteur")

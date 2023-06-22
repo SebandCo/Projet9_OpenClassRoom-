@@ -1,8 +1,9 @@
 from django.shortcuts import redirect,render
 from django.contrib.auth.decorators import login_required
 from . import forms, models
+from django.shortcuts import get_object_or_404
 
-
+# ------------- Gestion des critiques ----------------
 @login_required
 def creation_critique(request):
     critique_form = forms.CritiqueForm()
@@ -10,11 +11,16 @@ def creation_critique(request):
     if request.method == "POST":
         #critique_titre = forms.CritiqueTitre(request.POST)
         critique_form = forms.CritiqueForm(request.POST)
+        print(request.POST)
+        print(request.POST.get("ticket"))
         # On vérifie que le formulaire est valide
         if critique_form.is_valid():
             critique = critique_form.save(commit=False) 
             critique.auteur = request.user
             critique.save()
+            # Augmente de 1 le nombre de critique cumulé pour le titre
+            critique.ticket.nombre_critique += 1
+            critique.ticket.save()
             # Augmente de 1 le nombre de critique posté par l'utilisateur
             request.user.nombre_critique += 1
             request.user.save()
@@ -24,7 +30,7 @@ def creation_critique(request):
                   "blog/creation_critique.html",
                   context = context)
 
-
+# ------------- Gestion des tickets ----------------
 @login_required
 def creation_ticket(request):
     ticket_form = forms.TicketForm()
@@ -43,3 +49,17 @@ def creation_ticket(request):
     return render(request,
                   "blog/creation_ticket.html",
                   context = context)
+
+@login_required
+def affichage_des_tickets(request):
+    tickets = models.Ticket.objects.all()
+    return render(request,
+                  "blog/affichage_des_tickets.html",
+                  context={"tickets":tickets})
+
+@login_required
+def affichage_dun_ticket(request, ticket_id):
+    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    return render(request,
+                  "blog/affichage_dun_ticket.html",
+                  context={"ticket":ticket})

@@ -11,9 +11,10 @@ class Ticket(models.Model):
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
                                default="Demandeur inconnu",
                                on_delete=models.SET_DEFAULT)
-    illustration = models.ImageField(null=True,
-                                     blank=True)
+    illustration = models.ImageField(default="../media/Pas_d'image_disponible.png")
     date_creation = models.DateTimeField(auto_now_add=True)
+    nombre_critique = models.fields.IntegerField(default=0,
+                                                 verbose_name="Nombre de critique")
 
     # Constance de classe pour plus de clarté
     ILLUSTRATIONS_MAX_SIZE = (800, 800)

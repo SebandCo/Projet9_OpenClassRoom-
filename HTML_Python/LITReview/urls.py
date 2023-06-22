@@ -35,4 +35,7 @@ urlpatterns = [
     # URL création de ticket et critique
     path("blog/creation_ticket/", blog.views.creation_ticket, name="creation_ticket"),
     path("blog/creation_critique/", blog.views.creation_critique, name="creation_critique"),
+    # URL affichage des tickets
+    path("blog/affichage_des_tickets/", blog.views.affichage_des_tickets, name="affichage_des_tickets"),
+    path("blog/affichage_dun_ticket/<int:ticket_id>/", blog.views.affichage_dun_ticket, name="affichage_dun_ticket"),
 ]
