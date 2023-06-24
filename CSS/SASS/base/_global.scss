@@ -22,3 +22,12 @@
     left:$taille-menu + 0.5em;
     width:100%;
 }
+
+.tableau{
+    display:grid;
+    align-items:center;
+    text-align: center;
+    td{
+        text-align: center;
+    }
+}

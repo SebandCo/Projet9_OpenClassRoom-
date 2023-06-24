@@ -17,14 +17,14 @@ class Ticket(models.Model):
                                                  verbose_name="Nombre de critique")
 
     # Constance de classe pour plus de clarté
-    ILLUSTRATIONS_MAX_SIZE = (800, 800)
+    ILLUSTRATIONS_TAILLE_MAX = (200, 200)
 
     # Methode de redimmensionnement
     def resize_illustration(self):
         # Ouverture de l'illustration
         illustration = Image.open(self.illustration)
         # Redimmensionnement de l'illustration
-        illustration.thumbnail(self.ILLUSTRATIONS_MAX_SIZE)
+        illustration.thumbnail(self.ILLUSTRATIONS_TAILLE_MAX)
         # Sauvegarde en utilisant le chemin de l'illustration
         illustration.save(self.illustration.path)
 

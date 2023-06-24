@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    # Deux profils d'utilisateur possible Utilisateur ou Administrateur
+    # Deux profils possible "Utilisateur" ou "Administrateur"
     UTILISATEUR = "UTILISATEUR"
     ADMINISTRATEUR = "ADMINISTRATEUR"
 
@@ -18,4 +18,4 @@ class User(AbstractUser):
                                                  verbose_name="Nombre de critique")
     role = models.CharField(max_length=30,
                             choices=ROLE_CHOICES,
-                            verbose_name="Rôle")
+                            default=UTILISATEUR)

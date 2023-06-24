@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 import authentication.views
 import blog.views
 import connected.views
@@ -38,4 +39,10 @@ urlpatterns = [
     # URL affichage des tickets
     path("blog/affichage_des_tickets/", blog.views.affichage_des_tickets, name="affichage_des_tickets"),
     path("blog/affichage_dun_ticket/<int:ticket_id>/", blog.views.affichage_dun_ticket, name="affichage_dun_ticket"),
+    # URL gestion des utilisateurs
+    path("connected/gestion_utilisateur/", connected.views.gestion_utilisateur, name="gestion_utilisateur"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

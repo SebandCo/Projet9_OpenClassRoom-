@@ -13,8 +13,7 @@ class SignupForm(UserCreationForm):
         fields = ["username",
                   "email",
                   "first_name",
-                  "last_name",
-                  "role"]
+                  "last_name"]
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63,

@@ -1,0 +1,29 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Gestion des utilisateurs
+{% endblock en-tete %}
+
+{% block content %}
+    <p>Ici la gestion des utilisateurs</p>
+    <form method="post" enctype="multipart/form-data" class="tableau">
+        <table>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Nombre de ticket</th>
+                <th>Nombre de critique</th>
+                <th>Profil</th>
+            </tr>
+            <tr>
+            {%for utilisateur in utilisateurs%}
+                <tr>
+                    <td>{{utilisateur.username}}</td>
+                    <td>{{utilisateur.nombre_ticket}}</td>
+                    <td>{{utilisateur.nombre_critique}}</td>
+                    <td>{{form_utilisateur.role}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% csrf_token %}
+        <button type="submit">Valider les changements</button>
+{% endblock content %}
