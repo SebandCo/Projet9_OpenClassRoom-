@@ -1,7 +1,7 @@
 {% extends 'base_connecte.html' %}
 
 {% block en-tete %}
-    Affichage du ticket {{ticket.id}}
+    Affichage du ticket : {{ticket.titre_ticket}}
 {% endblock en-tete %}
 
 {% block content %}
@@ -10,6 +10,9 @@
         <p div="titre" class="ticket_colonne_1">Titre : </p>
         <p div="resultat_titre" class="ticket_colonne_1">{{ticket.titre_ticket}}</p>
         
+        <p div="auteur" class="ticket_colonne_1">Auteur : </p>
+        <p div="resultat_auteur" class="ticket_colonne_1">{{ticket.auteur}}</p>
+
         <p div="description" class="ticket_colonne_1">Description : </p>
         <p div="resultat_description" class="ticket_colonne_1">{{ticket.description}}</p>
         
@@ -18,4 +21,7 @@
             <img src="{{ ticket.illustration.url }}">
         </p>
     </form>
+    <a class="bouton" href="{% url 'affichage_des_tickets' %}">Retour</a>
+    <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier le ticket</a>
+    <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre {{ticket.auteur}}</a>
 {% endblock content %}

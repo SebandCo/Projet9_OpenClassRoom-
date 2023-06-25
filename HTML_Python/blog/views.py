@@ -25,8 +25,45 @@ def creation_critique(request):
                   "blog/creation_critique.html",
                   context = context)
 
+def modification_ticket(request, ticket_id):
+    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    ticket_form = forms.TicketForm(instance=ticket)
+    if request.method == "POST":
+        if "edit_ticket" in request.POST:
+            ticket_form = forms.TicketForm(request.POST,
+                                           request.FILES,
+                                           instance=ticket)
+            # On vérifie que le formulaire est valide
+            if ticket_form.is_valid():
+                ticket_form.save()
+                return redirect("home")
+    context = {"ticket_form": ticket_form}
+    return render(request,
+                  "blog/modification_ticket.html",
+                  context = context)
+
 # ------------- Gestion des tickets ----------------
-@login_required
+def creation_ticket(request):
+    ticket_form = forms.TicketForm()
+    if request.method == "POST":
+        ticket_form = forms.TicketForm(request.POST,
+                                       request.FILES)
+        # On vérifie que le formulaire est valide
+        if ticket_form.is_valid():
+            ticket = ticket_form.save(commit=False) 
+            ticket.auteur = request.user
+            ticket.save()
+            # Augmente de 1 le nombre de critique posté par l'utilisateur
+            request.user.nombre_ticket += 1
+            request.user.save()
+            return redirect("home")
+    context = {"ticket_form": ticket_form}
+    return render(request,
+                  "blog/creation_ticket.html",
+                  context = context)
+
+
+'''@login_required
 def creation_ticket(request):
     ticket_form = forms.TicketForm()
     critique_form = forms.TicketEtCritiqueForm()
@@ -41,6 +78,7 @@ def creation_ticket(request):
             # Augmente de 1 le nombre de ticket posté par l'utilisateur
             request.user.nombre_ticket += 1
             request.user.save()
+            print(critique_form)
             if critique_form.is_valid():
                 critique = critique_form.save(commit=False) 
                 critique.auteur = request.user
@@ -57,7 +95,7 @@ def creation_ticket(request):
     return render(request,
                   "blog/creation_ticket.html",
                   context = {"ticket_form": ticket_form,
-                             "critique_form": critique_form})
+                             "critique_form": critique_form})'''
 
 @login_required
 def affichage_des_tickets(request):

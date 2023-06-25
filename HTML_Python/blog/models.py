@@ -5,7 +5,8 @@ from django import forms
 
 # Classe pour les tickets
 class Ticket(models.Model):
-    titre_ticket = models.CharField(max_length=128)
+    titre_ticket = models.CharField(max_length=128,
+                                    verbose_name="Titre du Ticket")
     description = models.TextField(max_length=2048,
                                    blank=True)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -51,6 +52,7 @@ class Critique(models.Model):
                                             default = 0)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)
-    titre_critique = models.CharField(max_length=128)
+    titre_critique = models.CharField(max_length=128,
+                                      verbose_name="Titre de la critique")
     commentaire = models.TextField(max_length=8192)
     date_creation = models.DateTimeField(auto_now_add=True)

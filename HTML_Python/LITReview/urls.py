@@ -39,6 +39,7 @@ urlpatterns = [
     # URL affichage des tickets
     path("blog/affichage_des_tickets/", blog.views.affichage_des_tickets, name="affichage_des_tickets"),
     path("blog/affichage_dun_ticket/<int:ticket_id>/", blog.views.affichage_dun_ticket, name="affichage_dun_ticket"),
+    path("blog/modification_ticket/<int:ticket_id>/", blog.views.modification_ticket, name="modification_ticket"),
     # URL gestion des utilisateurs
     path("connected/gestion_utilisateur/", connected.views.gestion_utilisateur, name="gestion_utilisateur"),
 ]

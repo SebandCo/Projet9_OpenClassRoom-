@@ -23,8 +23,7 @@ def gestion_utilisateur(request):
         
         if form_utilisateur.is_valid():
             utilisateur = form_utilisateur.save(commit=False)
-            print (request)
-            print (utilisateur)
+            
             utilisateur.role = request.role
             utilisateur.save()
             return redirect("home")
