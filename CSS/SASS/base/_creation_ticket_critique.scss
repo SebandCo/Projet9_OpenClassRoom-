@@ -8,10 +8,10 @@
         @include flex-colonne;
         label{
             color:blue;
-            text-align: center;
+            @include texte-centre;
         }
         input{
-            align-items: center;
+            @include texte-centre;
         }
         #id_description{
             height:10em;
@@ -19,7 +19,7 @@
     }
     #id_note{
         display:flex;
-        align-items: center;
+        @include texte-centre;
         justify-content: space-around;
         
     }

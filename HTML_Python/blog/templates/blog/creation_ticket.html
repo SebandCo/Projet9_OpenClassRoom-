@@ -9,6 +9,9 @@
         <!-- On rajoute le formulaire de création de ticket -->
         {{ticket_form.as_p}}
         {% csrf_token %}
-        <button type="submit">Publier</button>
+        <button type="submit">Publier le ticket seulement</button>
+        {{critique_form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Publier le ticket et la critique ensemble</button>
     </form>
 {% endblock content %}

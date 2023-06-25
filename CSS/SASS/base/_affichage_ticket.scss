@@ -1,8 +1,7 @@
 .liste_livre{
     display:flex;
     flex-direction: row;
-    text-align: center;
-    align-items:center;
+    @include texte-centre;
 }
 
 .affichage_ticket{

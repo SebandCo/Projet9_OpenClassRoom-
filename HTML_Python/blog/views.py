@@ -4,15 +4,10 @@ from . import forms, models
 from django.shortcuts import get_object_or_404
 
 # ------------- Gestion des critiques ----------------
-@login_required
 def creation_critique(request):
     critique_form = forms.CritiqueForm()
-    #print(utilisateur)
     if request.method == "POST":
-        #critique_titre = forms.CritiqueTitre(request.POST)
         critique_form = forms.CritiqueForm(request.POST)
-        print(request.POST)
-        print(request.POST.get("ticket"))
         # On vérifie que le formulaire est valide
         if critique_form.is_valid():
             critique = critique_form.save(commit=False) 
@@ -34,8 +29,10 @@ def creation_critique(request):
 @login_required
 def creation_ticket(request):
     ticket_form = forms.TicketForm()
+    critique_form = forms.TicketEtCritiqueForm()
     if request.method == "POST":
         ticket_form= forms.TicketForm(request.POST, request.FILES)
+        critique_form= forms.TicketEtCritiqueForm(request.POST)
         # On vérifie que le formulaire est valide
         if ticket_form.is_valid():
             ticket = ticket_form.save(commit=False)
@@ -44,11 +41,23 @@ def creation_ticket(request):
             # Augmente de 1 le nombre de ticket posté par l'utilisateur
             request.user.nombre_ticket += 1
             request.user.save()
+            if critique_form.is_valid():
+                critique = critique_form.save(commit=False) 
+                critique.auteur = request.user
+                print(ticket.id)
+                critique.ticket = ticket
+                critique.save()
+                # Augmente de 1 le nombre de critique cumulé pour le titre
+                critique.ticket.nombre_critique += 1
+                critique.ticket.save()
+                # Augmente de 1 le nombre de critique posté par l'utilisateur
+                request.user.nombre_critique += 1
+                request.user.save()
             return redirect("home")
-    context ={"ticket_form": ticket_form}
     return render(request,
                   "blog/creation_ticket.html",
-                  context = context)
+                  context = {"ticket_form": ticket_form,
+                             "critique_form": critique_form})
 
 @login_required
 def affichage_des_tickets(request):

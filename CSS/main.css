@@ -117,6 +117,11 @@
   height: 100%;
 }
 
+.texte-centre {
+  align-items: center;
+  text-align: center;
+}
+
 .contenu-principal {
   position: fixed;
   left: 15.5em;
@@ -163,10 +168,12 @@
 }
 .blog p label {
   color: blue;
+  align-items: center;
   text-align: center;
 }
 .blog p input {
   align-items: center;
+  text-align: center;
 }
 .blog p #id_description {
   height: 10em;
@@ -174,14 +181,15 @@
 .blog #id_note {
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-around;
 }
 
 .liste_livre {
   display: flex;
   flex-direction: row;
-  text-align: center;
   align-items: center;
+  text-align: center;
 }
 
 .affichage_ticket {

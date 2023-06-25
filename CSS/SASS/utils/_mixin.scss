@@ -5,6 +5,11 @@
     border:groove;
 }
 
+@mixin texte-centre{
+    align-items:center;
+    text-align: center;
+}
+
 @mixin couleur-bouton($couleur){
     @if (lightness($couleur)<25%){
         color : white;

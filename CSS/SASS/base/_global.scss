@@ -17,6 +17,10 @@
     @include mise-en-forme-bouton(black)
 }
 
+.texte-centre{
+    @include texte-centre;
+}
+
 .contenu-principal{
     position: fixed;
     left:$taille-menu + 0.5em;
@@ -25,8 +29,7 @@
 
 .tableau{
     display:grid;
-    align-items:center;
-    text-align: center;
+    @include texte-centre;
     td{
         text-align: center;
     }
