@@ -20,10 +20,9 @@ def creation_critique(request):
             request.user.nombre_critique += 1
             request.user.save()
             return redirect("home")
-    context = {"critique_form": critique_form}
     return render(request,
                   "blog/creation_critique.html",
-                  context = context)
+                  context = {"critique_form": critique_form})
 
 def modification_ticket(request, ticket_id):
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
@@ -37,10 +36,9 @@ def modification_ticket(request, ticket_id):
             if ticket_form.is_valid():
                 ticket_form.save()
                 return redirect("home")
-    context = {"ticket_form": ticket_form}
     return render(request,
                   "blog/modification_ticket.html",
-                  context = context)
+                  context = {"ticket_form": ticket_form})
 
 # ------------- Gestion des tickets ----------------
 def creation_ticket(request):
@@ -57,10 +55,9 @@ def creation_ticket(request):
             request.user.nombre_ticket += 1
             request.user.save()
             return redirect("home")
-    context = {"ticket_form": ticket_form}
     return render(request,
                   "blog/creation_ticket.html",
-                  context = context)
+                  context = {"ticket_form": ticket_form})
 
 
 '''@login_required

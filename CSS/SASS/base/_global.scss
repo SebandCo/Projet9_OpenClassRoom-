@@ -28,9 +28,9 @@
 }
 
 .tableau{
-    display:grid;
-    @include texte-centre;
-    td{
-        text-align: center;
+    width : 100%;
+    table-layout: auto;
+    tr{
+        text-align: center;        
     }
 }

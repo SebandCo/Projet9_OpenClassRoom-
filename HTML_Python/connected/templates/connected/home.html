@@ -7,6 +7,27 @@
 {% block content %}
     <p>Vous êtes connecté !</p>
     <p>Ici la liste des derniers tickets</p>
+    <!-- Affiche la liste des tickets -->
+    {% for ticket in tickets %}
+        <!-- Si la date du dernier log est inférieur à la création du ticket 
+             Alors rajoute la notion de "nouveau" -->
+        {% if request.user.last_login < ticket.date_creation %}
+            <P>nouveau : {{ticket.titre_ticket}}</P>
+        {% else %}
+            <P>{{ticket.titre_ticket}}</P>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Affiche la liste des critiques -->
     <p>Ici la liste des dernieres critiques</p>
+    {% for critique in critiques %}
+        <!-- Si la date du dernier log est inférieur à la création du critique 
+             Alors rajoute la notion de "nouveau" -->
+             {% if request.user.last_login < critique.date_creation %}
+             <P>nouveau : {{critique.titre_critique}}</P>
+         {% else %}
+             <P>{{critique.titre_critique}}</P>
+         {% endif %}
+    {% endfor %}
     <p>Ici les publications de mes favoris</p>
 {% endblock content %}

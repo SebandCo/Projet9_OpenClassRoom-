@@ -129,11 +129,10 @@
 }
 
 .tableau {
-  display: grid;
-  align-items: center;
-  text-align: center;
+  width: 100%;
+  table-layout: auto;
 }
-.tableau td {
+.tableau tr {
   text-align: center;
 }
 
