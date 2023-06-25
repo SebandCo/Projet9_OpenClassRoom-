@@ -15,18 +15,16 @@ def page_personnel(request):
 @login_required
 def gestion_utilisateur(request):
     utilisateurs = User.objects.all()
-    form_utilisateur = forms.ModificationUtilisateur(request.POST)
-    
+    form_utilisateur = forms.ModificationUtilisateur()
     if request.method == "POST":
-        form_utilisateur = forms.ModificationUtilisateur(request.POST)
-        print(form_utilisateur)
-        
-        if form_utilisateur.is_valid():
-            utilisateur = form_utilisateur.save(commit=False)
-            
-            utilisateur.role = request.role
+        # Récupére la liste des roles de la méthode POST
+        liste_role=request.POST.getlist('role')
+        rang=0
+        for utilisateur in utilisateurs:
+            # Affecte les roles suivant la liste des utilisateurs
+            utilisateur.role = liste_role[rang]
             utilisateur.save()
-            return redirect("home")
+            rang += 1
     
     return render(request,
                   "connected/gestion_utilisateur.html",

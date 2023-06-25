@@ -20,11 +20,22 @@
                     <td>{{utilisateur.username}}</td>
                     <td>{{utilisateur.nombre_ticket}}</td>
                     <td>{{utilisateur.nombre_critique}}</td>
-                    <td>{{form_utilisateur.role}}</td>
+                    <td>
+                        <select name="role" id="id_role">
+                            {% if utilisateur.role == "Utilisateur" %}
+                                <option value="Utilisateur" selected>Utilisateur</option>
+                                <option value="Administrateur">Administrateur</option>
+                            {% else %}
+                                <option value="Utilisateur" >Utilisateur</option>
+                                <option value="Administrateur" selected>Administrateur</option>
+                            {% endif %}
+                        </select>
+                    </td>
                     <td>{{utilisateur.role}}</td>
                 </tr>
             {% endfor %}
         </table>
         {% csrf_token %}
         <button type="submit">Valider les changements</button>
+    </form>
 {% endblock content %}
