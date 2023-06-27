@@ -1,0 +1,30 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Mes abonnements
+{% endblock en-tete %}
+
+{% block content %}
+    <h2>Suivre des utilisateurs</h2>
+        <form method="post" enctype="multipart/form-data" class="tableau">
+            <table>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Nombre de ticket</th>
+                    <th>Nombre de critique</th>
+                    <th>Abonnement</th>
+                </tr>
+                {%for utilisateur in utilisateurs%}
+                    <tr>
+                        <td>{{utilisateur.username}}</td>
+                        <td>{{utilisateur.nombre_ticket}}</td>
+                        <td>{{utilisateur.nombre_critique}}</td>
+                        <td>{{utilisateur.abonnement}}</td>
+                        <td>{{follower_form}}</td>
+                    </tr>
+                {% endfor %}
+            {{ follower_form.as_p }}
+            {% csrf_token %}
+        <button type="submit" >Confirmer</button>
+    </form>
+{% endblock content %}

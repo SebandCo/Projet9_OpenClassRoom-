@@ -42,6 +42,8 @@ urlpatterns = [
     path("blog/modification_ticket/<int:ticket_id>/", blog.views.modification_ticket, name="modification_ticket"),
     # URL gestion des utilisateurs
     path("connected/gestion_utilisateur/", connected.views.gestion_utilisateur, name="gestion_utilisateur"),
+    # URL abonnement utilisateur
+    path("connected/abonnement_utilisateur/", connected.views.abonnement_utilisateur, name="abonnement_utilisateur")
 ]
 
 if settings.DEBUG:

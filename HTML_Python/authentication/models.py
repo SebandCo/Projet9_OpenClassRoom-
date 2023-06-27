@@ -19,3 +19,6 @@ class User(AbstractUser):
     role = models.CharField(max_length=30,
                             choices=ROLE_CHOICES,
                             default=UTILISATEUR)
+
+    abonnement = models.ManyToManyField('self',
+                                        symmetrical=False)
