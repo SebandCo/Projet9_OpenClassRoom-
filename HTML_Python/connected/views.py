@@ -4,15 +4,20 @@ from authentication.models import User
 from . import forms, models
 from blog.models import Ticket, Critique
 
-@login_required
-def home(request):
-    return render(request,
-                  "connected/home.html")
 
 @login_required
 def page_personnel(request):
+    tickets = Ticket.objects.all()
+    critiques = Critique.objects.all()
+    mes_tickets = []
+    for ticket in tickets:
+        if ticket.auteur == request.user :
+            mes_tickets.append(ticket)
+
     return render(request,
-                  "connected/page_personnel.html")
+                  "connected/page_personnel.html",
+                  context={"tickets":mes_tickets,
+                           "critiques":critiques})
 
 
 @login_required
@@ -44,7 +49,6 @@ def home(request):
     # N'affiche que les 5 premieres réponses
     tickets = Ticket.objects.all().order_by("-date_creation")[:5]
     critiques = Critique.objects.all().order_by("-date_creation")[:5]
-    print(tickets)
     return render(request,
                   "connected/home.html",
                   context={"tickets":tickets,

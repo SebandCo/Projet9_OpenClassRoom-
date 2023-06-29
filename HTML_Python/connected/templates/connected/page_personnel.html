@@ -6,7 +6,7 @@
 
 {% block content %}
 <table class="tableau-mon-profil">
-    <caption> Mes informations </caption>
+    <caption> Mes Informations </caption>
     <tr>
         <td>Mon nom</td>
         <td>{{request.user}}</td>
@@ -40,10 +40,37 @@
         <td>{{request.user.role}}</td>
     </tr>
 </table>
-<table class="tableau-mon-profil">
-    <caption>Mes Tickets</caption>
+
+<table class="tableau-mon-profil tableau">
+        <caption>Mes Tickets</caption>
+        <tr>
+            <th>Titre du ticket</th>
+            <th>Nombre de critique</th>
+            <th>Lien</th>
+        </tr>
+        {%for ticket in tickets %}
+            <tr>
+                <td>{{ticket.titre_ticket}}</td>
+                <td>{{ticket.nombre_critique}}</td>
+                <td> <a href="{% url 'affichage_dun_ticket' ticket.id %}">Aperçu</td>
+            </tr>
+        {% endfor %}
 </table>
-<table class="tableau-mon-profil">
+
+<table class="tableau-mon-profil tableau">
     <caption>Mes Critiques</caption>
+    <tr>
+        <th>Titre de la critique</th>
+        <th>Nom du ticket</th>
+        <th>Lien</th>
+    </tr>
+    {%for critique in critiques %}
+        <tr>
+            <td>{{critique.titre_critique}}</td>
+            <td>{{critique.ticket.titre_ticket}}</td>
+            <td> <a href="{% url 'affichage_dun_ticket' critique.ticket.id %}">Aperçu</td>
+        </tr>
+    {% endfor %}
 </table>
+
 {% endblock content %}
