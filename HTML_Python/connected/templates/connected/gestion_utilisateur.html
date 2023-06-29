@@ -19,6 +19,7 @@
                     <td>{{utilisateur.username}}</td>
                     <td>{{utilisateur.nombre_ticket}}</td>
                     <td>{{utilisateur.nombre_critique}}</td>
+                    <!--Empeche l'utilisateur connecté de modifier son profil-->
                     {%if request.user == utilisateur %}
                         <td>{{utilisateur.role}}</td>
                     {% else %}

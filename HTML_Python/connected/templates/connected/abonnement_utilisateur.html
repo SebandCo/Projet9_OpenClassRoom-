@@ -23,6 +23,7 @@
                         <td>{{follower_form}}</td>
                     </tr>
                 {% endfor %}
+            </table>
             {{ follower_form.as_p }}
             {% csrf_token %}
         <button type="submit" >Confirmer</button>
