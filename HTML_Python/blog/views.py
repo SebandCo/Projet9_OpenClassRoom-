@@ -103,7 +103,10 @@ def affichage_des_tickets(request):
 
 @login_required
 def affichage_dun_ticket(request, ticket_id):
-    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    ticket_choisi = get_object_or_404(models.Ticket, id=ticket_id)
+    critiques = models.Critique.objects.filter(ticket=ticket_choisi)
+    print(critiques)
     return render(request,
                   "blog/affichage_dun_ticket.html",
-                  context={"ticket":ticket})
+                  context={"ticket":ticket_choisi,
+                           "critiques":critiques})

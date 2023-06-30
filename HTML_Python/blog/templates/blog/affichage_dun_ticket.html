@@ -5,21 +5,63 @@
 {% endblock en-tete %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data" class="affichage_ticket tableau">
-        <!-- On rajoute le formulaire de création de critique -->
-        <p div="titre" class="ticket_colonne_1">Titre : </p>
-        <p div="resultat_titre" class="ticket_colonne_1">{{ticket.titre_ticket}}</p>
-        
-        <p div="auteur" class="ticket_colonne_1">Auteur : </p>
-        <p div="resultat_auteur" class="ticket_colonne_1">{{ticket.auteur}}</p>
+    <form method="post" enctype="multipart/form-data">
+        <!--Affichage du ticket-->
+        <table class="tableau">
+            <caption>Le ticket</caption>
+            <tr>
+                <th class="titre">Titre</th>
+                <th class="titre">Illustration</th>
+            </tr>
+            <tr>
+                <td>{{ticket.titre_ticket}}</td>
+                <td rowspan="5"><img src="{{ ticket.illustration.url }}"></td>
+            </tr>
+            <tr>
+                <td class="titre">Auteur</td>
+            </tr>
+            <tr>
+                <td>{{ticket.auteur}}</td>
+            </tr>
+            <tr>
+                <td class="titre">Description</td>
+            </tr>
+            <tr>
+                <td>{{ticket.description}}</td>
+            </tr>
+        </table>
 
-        <p div="description" class="ticket_colonne_1">Description : </p>
-        <p div="resultat_description" class="ticket_colonne_1">{{ticket.description}}</p>
-        
-        <p class="illustration">Illustration : </p>
-        <p class="resultat_illustration">
-            <img src="{{ ticket.illustration.url }}">
-        </p>
+        <!--Affichage des critiques-->
+        <table class="tableau">
+            <caption>Critiques</caption>
+            <!--Si il n'y a pas de critique-->
+            {% if critiques == "" %}
+                <tr>
+                    <th>Il n'y a pas encore de critique pour se ticket</th>
+                </tr>
+            <!--Si il y en a-->
+            {% else %}
+                {% for critique in critiques %}
+                    <tr>
+                        <th class="titre">Note</th>
+                        <th class="titre">Titre</th>
+                    </tr>
+                    <tr>
+                        <td>{{critique.note}}</td>
+                        <td>{{critique.titre_critique}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="titre">Commentaire</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{critique.commentaire}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Ecrit par : {{critique.auteur}}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
     </form>
     <a class="bouton" href="{% url 'affichage_des_tickets' %}">Retour</a>
     <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier le ticket</a>

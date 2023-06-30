@@ -30,6 +30,9 @@
 .tableau{
     width : 100%;
     table-layout: auto;
+    .titre{
+        font-weight: bold;
+    }
     tr{
         text-align: center;        
     }

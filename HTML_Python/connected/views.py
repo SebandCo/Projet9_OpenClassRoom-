@@ -10,14 +10,19 @@ def page_personnel(request):
     tickets = Ticket.objects.all()
     critiques = Critique.objects.all()
     mes_tickets = []
+    mes_critiques = []
     for ticket in tickets:
         if ticket.auteur == request.user :
             mes_tickets.append(ticket)
+    
+    for critique in critiques:
+        if critique.auteur == request.user :
+            mes_critiques.append(critique)
 
     return render(request,
                   "connected/page_personnel.html",
                   context={"tickets":mes_tickets,
-                           "critiques":critiques})
+                           "critiques":mes_critiques})
 
 
 @login_required
