@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group
+from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
@@ -22,12 +22,3 @@ class User(AbstractUser):
 
     abonnement = models.ManyToManyField('self',
                                         symmetrical=False)
-    
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.role == self.UTILISATEUR:
-            group = Group.objects.get(name='utilisateur')
-            group.user_set.add(self)
-        elif self.role == self.ADMINISTRATEUR:
-            group = Group.objects.get(name='administrateur')
-            group.user_set.add(self)

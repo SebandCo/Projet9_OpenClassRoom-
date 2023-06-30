@@ -24,9 +24,7 @@
                 <a class="bouton" href="{% url 'creation_ticket' %}">Créer un ticket</a>
                 <a class="bouton" href="{% url 'creation_critique' %}">Créer une critique</a>
                 <a class="bouton" href="{% url 'abonnement_utilisateur' %}">Mes abonnements</a>
-                {% if perms.gestion_utilisateur %}
-                    <a class="bouton" href="{% url 'gestion_utilisateur' %}">Gérer les utilisateurs</a>
-                {% endif %}
+                <a class="bouton" href="{% url 'gestion_utilisateur' %}">Gérer les utilisateurs</a>
                 <a class="bouton" href="{% url 'logout' %}">Se déconnecter</a>
             </p>
         </nav>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from authentication.models import User
 from . import forms, models
 from blog.models import Ticket, Critique
@@ -26,7 +26,6 @@ def page_personnel(request):
 
 
 @login_required
-@permission_required ("gestion_utilisateur", raise_exception=True)
 def gestion_utilisateur(request):
     utilisateurs = User.objects.all()
     utilisateur = User(request)
