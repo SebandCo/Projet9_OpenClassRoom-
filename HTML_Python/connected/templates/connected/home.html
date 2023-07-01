@@ -7,51 +7,52 @@
 {% block content %}
     <p>Vous êtes connecté !</p>
     <!-- Affiche la liste des tickets -->
-    <table class="tableau-mon-profil tableau">
-        <caption>Ici la liste des derniers tickets</caption>
+    <table class="tableau">
+        <caption>Voici les derniers tickets postés</caption>
         <tr>
             <th>Nouveauté</th>
             <th>Nom du ticket</th>
             <th>Nombre de critique</th>
+            <th>Aperçu</th>
         </tr>
         {% for ticket in tickets %}
             <tr>
                 <!-- Si la date du dernier log est inférieur à la création du ticket
                     Alors rajoute la notion de "nouveau" -->
                 {% if request.user.last_login < ticket.date_creation %}
-                    <th>nouveau</th>
+                    <td class="nouveau">Nouveau</td>
                 {% else %}
-                    <th></th>
+                    <td></td>
                 {% endif %}
-                <th>{{ticket.titre_ticket}}</th>
-                <th>{{ticket.nombre_critique}}</th>
+                <td>{{ticket.titre_ticket}}</td>
+                <td>{{ticket.nombre_critique}}</td>
+                <td> <a href="{% url 'affichage_dun_ticket' ticket.id %}">Aperçu</td>
             </tr>
         {% endfor %}
     </table>
 
     <!-- Affiche la liste des critiques -->
-    <table class="tableau-mon-profil tableau">
-        <caption>Ici la liste des dernieres critiques</caption>
+    <table class="tableau">
+        <caption>Voici les dernières critiques postées</caption>
         <tr>
             <th>Nouveauté</th>
             <th>Nom de la critique</th>
             <th>Lié au ticket</th>
+            <th>Aperçu</th>
         </tr>
         {% for critique in critiques %}
             <tr>
                 <!-- Si la date du dernier log est inférieur à la création du critique 
                     Alors rajoute la notion de "nouveau" -->
                 {% if request.user.last_login < critique.date_creation %}
-                    <th>nouveau</th>
+                    <td class="nouveau">nouveau</td>
                 {% else %}
-                    <th></th>
+                    <td></td>
                 {% endif %}
-                <th>{{critique.titre_critique}}</th>
-                <th>{{critique.ticket.titre_ticket}}</th>
+                <td>{{critique.titre_critique}}</td>
+                <td>{{critique.ticket.titre_ticket}}</td>
+                <td> <a href="{% url 'affichage_dun_ticket' critique.ticket.id %}">Aperçu</td>
             </tr>
         {% endfor %}
     </table>
-
-
-    <p>Ici les publications de mes favoris</p>
 {% endblock content %}
