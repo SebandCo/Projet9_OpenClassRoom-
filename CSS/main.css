@@ -137,8 +137,10 @@
 }
 
 .tableau {
-  width: 50%;
   table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
 }
 .tableau .titre {
   font-weight: bold;
@@ -147,12 +149,6 @@
   text-align: center;
 }
 
-.tableau-mon-profil {
-  table-layout: fixed;
-  width: 100%;
-  border-collapse: collapse;
-  border: 3px solid purple;
-}
 .tableau-mon-profil th:nth-child(1) {
   width: auto;
 }

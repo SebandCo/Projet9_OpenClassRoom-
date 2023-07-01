@@ -36,8 +36,10 @@
 }
 
 .tableau{
-    width : 50%;
     table-layout: auto;
+    width : 100%;
+    border-collapse: collapse;
+    border: 3px solid $couleur-tableau;
     .titre{
         font-weight: bold;
     }
