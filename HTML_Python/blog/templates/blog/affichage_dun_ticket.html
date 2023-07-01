@@ -38,13 +38,8 @@
         <!--Affichage des critiques-->
         <table class="tableau">
             <caption>Critiques</caption>
-            <!--Si il n'y a pas de critique-->
-            {% if critiques == "" %}
-                <tr>
-                    <th>Il n'y a pas encore de critique pour se ticket</th>
-                </tr>
-            <!--Si il y en a-->
-            {% else %}
+            <!--Si il y a des critiques-->
+            {% if critiques %}
                 {% for critique in critiques %}
                     <tr>
                         <th class="titre">Note</th>
@@ -64,6 +59,12 @@
                         <td colspan="2">Ecrit par : {{critique.auteur}}</td>
                     </tr>
                 {% endfor %}
+            <!--Si il n'y en a pas-->
+            {% else %}
+                <tr>
+                    <th>Il n'y a pas encore de critique pour ce ticket</th>
+                </tr>
+                
             {% endif %}
         </table>
     </form>
@@ -71,6 +72,5 @@
     {% if request.user == ticket.auteur%}
         <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
     {% endif %}
-    <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
     <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre {{ticket.auteur}}</a>
 {% endblock content %}
