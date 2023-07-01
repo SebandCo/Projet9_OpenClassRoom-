@@ -25,9 +25,17 @@ class User(AbstractUser):
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if self.role == self.UTILISATEUR:
-            group = Group.objects.get(name='utilisateur')
+        if self.role == "Utilisateur":
+            group = Group.objects.get(name='Utilisateur')
+            print(group)
             group.user_set.add(self)
-        elif self.role == self.ADMINISTRATEUR:
-            group = Group.objects.get(name='administrateur')
+        elif self.role == "Administrateur":
+            group = Group.objects.get(name='Administrateur')
             group.user_set.add(self)
+
+            """if self.role == "Utilisateur":
+            group = Group.objects.get(name='Utilisateur')
+            group.user_set.add(self)
+        elif self.role == "Administrateur":
+            group = Group.objects.get(name='Administrateur')
+            group.user_set.add(self)"""
