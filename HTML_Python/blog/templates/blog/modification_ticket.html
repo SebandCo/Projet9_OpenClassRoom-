@@ -1,7 +1,7 @@
 {% extends 'base_connecte.html' %}
 
 {% block en-tete %}
-    Création de ticket
+    Modification du ticket : {{ticket.titre_ticket}}
 {% endblock en-tete %}
 
 {% block content %}
@@ -9,6 +9,6 @@
         <!-- On rajoute le formulaire de création de ticket -->
         {{ticket_form.as_p}}
         {% csrf_token %}
-        <button type="submit">Publier le ticket</button>
+        <button type="submit">Modifier le ticket</button>
     </form>
 {% endblock content %}

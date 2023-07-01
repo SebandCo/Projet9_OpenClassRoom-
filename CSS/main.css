@@ -146,6 +146,7 @@
   border-collapse: separate;
   border: 3px solid purple;
   margin-top: 2em;
+  margin-bottom: 2em;
   border-spacing: 1em;
 }
 .tableau .titre {

@@ -29,12 +29,16 @@ def modification_ticket(request, ticket_id):
     ticket_form = forms.TicketForm(instance=ticket)
     if request.method == "POST":
         if "edit_ticket" in request.POST:
-            ticket_form = forms.TicketForm(request.POST,
-                                           request.FILES,
-                                           instance=ticket)
-            # On vérifie que le formulaire est valide
-            if ticket_form.is_valid():
-                ticket_form.save()
+            # Controle que la personne qui modifie est bien le createur du ticket
+            if request.user == ticket.auteur:
+                ticket_form = forms.TicketForm(request.POST,
+                                            request.FILES,
+                                            instance=ticket)
+                # On vérifie que le formulaire est valide
+                if ticket_form.is_valid():
+                    ticket_form.save()
+                    return redirect("home")
+            else:
                 return redirect("home")
     return render(request,
                   "blog/modification_ticket.html",

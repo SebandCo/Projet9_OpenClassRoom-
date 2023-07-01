@@ -15,7 +15,11 @@
             </tr>
             <tr>
                 <td>{{ticket.titre_ticket}}</td>
-                <td rowspan="5"><img src="{{ ticket.illustration.url }}"></td>
+                <td rowspan="5">
+                    <img src="{{ ticket.illustration.url }}"
+                    alt="Image du ticket : {{ticket.titre_ticket}}"
+                    title ="{{ticket.titre_ticket}}">
+                </td>
             </tr>
             <tr>
                 <td class="titre">Auteur</td>
@@ -63,7 +67,10 @@
             {% endif %}
         </table>
     </form>
-    <a class="bouton" href="{% url 'affichage_des_tickets' %}">Retour</a>
-    <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier le ticket</a>
+    <a class="bouton" onclick="history.back();">Retour</a>
+    {% if request.user == ticket.auteur%}
+        <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
+    {% endif %}
+    <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
     <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre {{ticket.auteur}}</a>
 {% endblock content %}

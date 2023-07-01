@@ -41,13 +41,12 @@
     border-collapse: separate;
     border: 3px solid $couleur-tableau;
     margin-top : $marge-tableau;
+    margin-bottom : $marge-tableau;
     border-spacing: $marge-ligne-tableau;
     .titre{
         font-weight: bold;
     }
     tr{
         text-align: center;
-        
-        
     }
 }
