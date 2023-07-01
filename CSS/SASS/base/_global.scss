@@ -1,17 +1,23 @@
 .haut-de-page{
+    position: fixed;
+    z-index:3;
+    right : 0;
+    top:0;
+    width : 100%;
+    height : $hauteur-en-tete;
     text-align: center;
-    background-color: aquamarine;
+    background-color: $couleur-en-tete;
 }
 
 .barre-laterale{
     position: fixed;
+    top: $hauteur-en-tete+$marge-en-tete; 
     height: 100%;
     width: $taille-menu;
-    top: $hauteur-en-tete; 
     left: 0;
-    background-color: #1d3030;
-    color:  #ffffe6;
-    padding-top: $marge-menu + 1em;
+    background-color: $couleur-navigation;
+    color:  $couleur-texte-navigation;
+    padding-top: $marge-menu;
     padding-left: $marge-menu;
     padding-right: $marge-menu;
     @include mise-en-forme-bouton(black)
@@ -22,13 +28,15 @@
 }
 
 .contenu-principal{
-    position: fixed;
-    left:$taille-menu + 0.5em;
+    position : relative;
+    z-index:1;
+    left:$taille-menu+1em;
+    top : $hauteur-en-tete;
     width:100%;
 }
 
 .tableau{
-    width : 100%;
+    width : 50%;
     table-layout: auto;
     .titre{
         font-weight: bold;

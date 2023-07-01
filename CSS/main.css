@@ -63,19 +63,25 @@
   }
 }
 .haut-de-page {
+  position: fixed;
+  z-index: 3;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 4.5em;
   text-align: center;
   background-color: aquamarine;
 }
 
 .barre-laterale {
   position: fixed;
+  top: 4.7em;
   height: 100%;
   width: 15em;
-  top: 3em;
   left: 0;
   background-color: #1d3030;
-  color: #ffffe6;
-  padding-top: 1.2em;
+  color: white;
+  padding-top: 0.2em;
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
@@ -123,13 +129,15 @@
 }
 
 .contenu-principal {
-  position: fixed;
-  left: 15.5em;
+  position: relative;
+  z-index: 1;
+  left: 16em;
+  top: 4.5em;
   width: 100%;
 }
 
 .tableau {
-  width: 100%;
+  width: 50%;
   table-layout: auto;
 }
 .tableau .titre {
