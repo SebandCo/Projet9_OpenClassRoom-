@@ -1,0 +1,39 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Création de critique : {{ticket.titre_ticket}}
+{% endblock en-tete %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="blog" class="creation-critique">
+        <!--Affichage du ticket-->
+        <table class="tableau">
+            <caption>Le ticket</caption>
+            <tr>
+                <th class="titre">Titre</th>
+                <th class="titre">Illustration</th>
+                <th class="titre">Auteur</th>
+            </tr>
+            <tr>
+                <td>{{ticket.titre_ticket}}</td>
+                <td rowspan="5">
+                    <img src="{{ ticket.illustration.url }}"
+                    alt="Image du ticket : {{ticket.titre_ticket}}"
+                    title ="{{ticket.titre_ticket}}">
+                </td>
+                <td>{{ticket.auteur}}
+                </td>
+            </tr>
+            <tr>
+                <td class="titre">Description</td>
+            </tr>
+            <tr>
+                <td>{{ticket.description}}</td>
+            </tr>
+        </table>
+        <!-- On rajoute le formulaire de création de critique -->
+        {{critique_form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Publier</button>
+    </form>
+{% endblock content %}

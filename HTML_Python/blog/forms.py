@@ -34,3 +34,9 @@ class CritiqueForm(forms.ModelForm):
         model = models.Critique
         exclude = ("date_creation","auteur")
         widgets = {'note': forms.RadioSelect()}
+
+class CritiqueLieeForm(forms.ModelForm):
+    class Meta :
+        model = models.Critique
+        exclude = ("date_creation","auteur","ticket")
+        widgets = {'note': forms.RadioSelect()}

@@ -35,7 +35,8 @@ urlpatterns = [
     path("home/page_personnel/", connected.views.page_personnel, name="page_personnel"),
     # URL création de ticket et critique
     path("blog/creation_ticket/", blog.views.creation_ticket, name="creation_ticket"),
-    path("blog/creation_critique/", blog.views.creation_critique, name="creation_critique"),
+    path("blog/creation_critique_vide/", blog.views.creation_critique_vide, name="creation_critique_vide"),
+    path("blog/creation_critique_liee/<int:ticket_id>/", blog.views.creation_critique_liee, name="creation_critique_liee"),
     # URL affichage des tickets
     path("blog/affichage_des_tickets/", blog.views.affichage_des_tickets, name="affichage_des_tickets"),
     path("blog/affichage_dun_ticket/<int:ticket_id>/", blog.views.affichage_dun_ticket, name="affichage_dun_ticket"),
