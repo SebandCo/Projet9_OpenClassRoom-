@@ -2,11 +2,10 @@ from django.conf import settings
 from django.db import models
 from PIL import Image
 from django import forms
+import jsonfield
 
 # Classe pour les tickets
 class Ticket(models.Model):
-    titre_ticket = models.CharField(max_length=128,
-                                    verbose_name="Titre du Ticket")
     description = models.TextField(max_length=2048,
                                    blank=True)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -16,6 +15,7 @@ class Ticket(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
     nombre_critique = models.fields.IntegerField(default=0,
                                                  verbose_name="Nombre de critique")
+    liste_contributeur = jsonfield.JSONField()
 
     # Constance de classe pour plus de clarté
     ILLUSTRATIONS_TAILLE_MAX = (200, 200)
