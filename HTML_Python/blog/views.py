@@ -49,6 +49,7 @@ def creation_critique_liee(request, ticket_id):
 
 # ------------- Gestion des tickets ----------------
 def creation_ticket(request):
+    print(dir(request.user))
     ticket_form = forms.TicketForm()
     if request.method == "POST":
         ticket_form = forms.TicketForm(request.POST,
@@ -97,8 +98,13 @@ def affichage_des_tickets(request):
 def affichage_dun_ticket(request, ticket_id):
     ticket_choisi = get_object_or_404(models.Ticket, id=ticket_id)
     critiques = models.Critique.objects.filter(ticket=ticket_choisi)
-    print(critiques)
+    #Vérifie que l'utilisateur n'a pas déjà mis une critique
+    critique_existante = False
+    for critique in critiques:
+        if critique.auteur == request.user:
+            critique_existante = True
     return render(request,
                   "blog/affichage_dun_ticket.html",
                   context={"ticket":ticket_choisi,
-                           "critiques":critiques})
+                           "critiques":critiques,
+                           "critique_existante":critique_existante})

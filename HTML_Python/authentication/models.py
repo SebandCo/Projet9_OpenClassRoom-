@@ -27,7 +27,6 @@ class User(AbstractUser):
         super().save(*args, **kwargs)
         if self.role == "Utilisateur":
             group = Group.objects.get(name='Utilisateur')
-            print(group)
             group.user_set.add(self)
         elif self.role == "Administrateur":
             group = Group.objects.get(name='Administrateur')

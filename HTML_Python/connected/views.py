@@ -26,7 +26,7 @@ def page_personnel(request):
 
 
 @login_required
-@permission_required ("gestion_utilisateur", raise_exception=True)
+#@permission_required ("gestion_utilisateur", raise_exception=True)
 def gestion_utilisateur(request):
     utilisateurs = User.objects.all()
     utilisateur = User(request)
@@ -35,13 +35,17 @@ def gestion_utilisateur(request):
         # Récupére la liste des roles de la méthode POST
         liste_role=request.POST.getlist('role')
         rang=0
-        for utilisateur in utilisateurs:
-            # Ne modifie que les autres utilisateurs
-            if utilisateur != request.user:
-                # Affecte les roles suivant la liste des utilisateurs
-                utilisateur.role = liste_role[rang]
-                utilisateur.save()
-                rang += 1
+        print(request.user.role)
+        if request.user.role == "Administrateur":
+            for utilisateur in utilisateurs:
+                # Ne modifie que les autres utilisateurs
+                if utilisateur != request.user:
+                    # Affecte les roles suivant la liste des utilisateurs
+                    utilisateur.role = liste_role[rang]
+                    utilisateur.save()
+                    rang += 1
+        else:
+            return redirect("home")
     
     return render(request,
                   "connected/gestion_utilisateur.html",

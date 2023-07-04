@@ -79,7 +79,10 @@
             {% endif %}
         </table>
     </form>
-    <a class="bouton" href="{% url 'creation_critique_liee' ticket.id%}">Créer une critique</a>
+    <!--Empeche l'utilisateur qui a déjà mis une critique d'acceder au lien pour en remettre une-->
+    {% if critique_existante == False %}
+        <a class="bouton" href="{% url 'creation_critique_liee' ticket.id%}">Créer une critique</a>
+    {% endif %}
     <a class="bouton" onclick="history.back();">Retour</a>
     
     
