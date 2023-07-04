@@ -100,7 +100,6 @@ def suppression_critique(request, critique_id):
 # ------------- Gestion des tickets ----------------
 @login_required
 def creation_ticket(request):
-    print(dir(request.user))
     ticket_form = forms.TicketForm()
     if request.method == "POST":
         ticket_form = forms.TicketForm(request.POST,
@@ -169,12 +168,19 @@ def affichage_dun_ticket(request, ticket_id):
 @login_required
 def suppression_ticket(request, ticket_id):
     ticket = models.Ticket.objects.get(id=ticket_id)
+    critiques = models.Critique.objects.all()
     if request.method == "POST":
         # Controle que la personne qui supprime est bien le createur du ticket
         if request.user == ticket.auteur:
             # Diminue de 1 le nombre de ticket posté par l'utilisateur
             request.user.nombre_ticket -= 1
             request.user.save()
+            # Diminue le nombre de critique mis par les autres utilisateur
+            for critique in critiques:
+                if critique.ticket.id == ticket.id:
+                    # Diminue de 1 le nombre de critique posté par l'utilisateur
+                        critique.auteur.nombre_critique -= 1
+                        critique.auteur.save()
             # Supprime le ticket
             ticket.delete()
         return redirect("home")
