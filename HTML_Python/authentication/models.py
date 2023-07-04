@@ -22,7 +22,7 @@ class User(AbstractUser):
 
     abonnement = models.ManyToManyField('self',
                                         symmetrical=False)
-    
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.role == "Utilisateur":

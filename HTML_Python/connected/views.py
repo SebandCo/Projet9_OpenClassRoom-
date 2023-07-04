@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, permission_required
+# from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from authentication.models import User
-from . import forms, models
+from . import forms
 from blog.models import Ticket, Critique
 
 
@@ -12,29 +13,29 @@ def page_personnel(request):
     mes_tickets = []
     mes_critiques = []
     for ticket in tickets:
-        if ticket.auteur == request.user :
+        if ticket.auteur == request.user:
             mes_tickets.append(ticket)
-    
+
     for critique in critiques:
-        if critique.auteur == request.user :
+        if critique.auteur == request.user:
             mes_critiques.append(critique)
 
     return render(request,
                   "connected/page_personnel.html",
-                  context={"tickets":mes_tickets,
-                           "critiques":mes_critiques})
+                  context={"tickets": mes_tickets,
+                           "critiques": mes_critiques})
 
 
 @login_required
-#@permission_required ("gestion_utilisateur", raise_exception=True)
+# @permission_required ("gestion_utilisateur", raise_exception=True)
 def gestion_utilisateur(request):
     utilisateurs = User.objects.all()
     utilisateur = User(request)
     form_utilisateur = forms.ModificationUtilisateur()
     if request.method == "POST":
         # Récupére la liste des roles de la méthode POST
-        liste_role=request.POST.getlist('role')
-        rang=0
+        liste_role = request.POST.getlist('role')
+        rang = 0
         print(request.user.role)
         if request.user.role == "Administrateur":
             for utilisateur in utilisateurs:
@@ -46,11 +47,12 @@ def gestion_utilisateur(request):
                     rang += 1
         else:
             return redirect("home")
-    
+
     return render(request,
                   "connected/gestion_utilisateur.html",
-                  context={"utilisateurs":utilisateurs,
-                           "form_utilisateur":form_utilisateur})
+                  context={"utilisateurs": utilisateurs,
+                           "form_utilisateur": form_utilisateur})
+
 
 @login_required
 def home(request):
@@ -61,19 +63,20 @@ def home(request):
     critiques = Critique.objects.all().order_by("-date_creation")[:5]
     return render(request,
                   "connected/home.html",
-                  context={"tickets":tickets,
-                           "critiques":critiques})
+                  context={"tickets": tickets,
+                           "critiques": critiques})
+
 
 @login_required
 def abonnement_utilisateur(request):
     utilisateurs = User.objects.all()
-    follower_form = forms.FollowerForm(instance = request.user)
+    follower_form = forms.FollowerForm(instance=request.user)
     if request.method == "POST":
-        follower_form = forms.FollowerForm(request.POST, instance = request.user)
+        follower_form = forms.FollowerForm(request.POST, instance=request.user)
         if follower_form.is_valid():
             follower_form.save()
             return redirect("home")
     return render(request,
                   "connected/abonnement_utilisateur.html",
-                  context={"utilisateurs":utilisateurs,
-                           "follower_form":follower_form})
+                  context={"utilisateurs": utilisateurs,
+                           "follower_form": follower_form})

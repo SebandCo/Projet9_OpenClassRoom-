@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from PIL import Image
-from django import forms
+
 
 # Classe pour les tickets
 class Ticket(models.Model):
@@ -30,26 +30,27 @@ class Ticket(models.Model):
         illustration.save(self.illustration.path)
 
     # Méthode super pour sauvegarder les illustrations
-    def save(self,*arg, **kwargs):
+    def save(self, *arg, **kwargs):
         # Pour la compatibilité avec la classe parent
-        super().save(*arg,**kwargs)
+        super().save(*arg, **kwargs)
         # Appel de la méthode de redimmensionnement
         self.resize_illustration()
-    
+
     def __str__(self):
         return f'{self.titre_ticket}'
+
 
 # Classe pour les critiques
 class Critique(models.Model):
     ticket = models.ForeignKey(Ticket,
                                on_delete=models.CASCADE)
-    note = models.PositiveSmallIntegerField(choices = ((0, '0'),
-                                                       (1, '1'),
-                                                       (2, '2'),
-                                                       (3, '3'),
-                                                       (4, '4'),
-                                                       (5, '5')),
-                                            default = 0)
+    note = models.PositiveSmallIntegerField(choices=((0, '0'),
+                                                     (1, '1'),
+                                                     (2, '2'),
+                                                     (3, '3'),
+                                                     (4, '4'),
+                                                     (5, '5')),
+                                            default=0)
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE)
     titre_critique = models.CharField(max_length=128,

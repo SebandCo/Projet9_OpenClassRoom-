@@ -56,7 +56,7 @@ ROOT_URLCONF = "LITReview.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR.joinpath('templates'),],
+        "DIRS": [BASE_DIR.joinpath('templates'), ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -125,7 +125,7 @@ STATICFILES_DIRS = [BASE_DIR.joinpath('../CSS/')]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL ="authentication.User"
+AUTH_USER_MODEL = "authentication.User"
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = 'home'

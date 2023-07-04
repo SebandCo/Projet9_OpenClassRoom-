@@ -10,7 +10,7 @@ from django.conf import settings
 
 def inscription_page(request):
     form = forms.SignupForm()
-    if request.method =="POST":
+    if request.method == "POST":
         form = forms.SignupForm(request.POST)
         if form.is_valid():
             # Sauvegarde de l'utilisateur
@@ -22,6 +22,7 @@ def inscription_page(request):
     return render(request,
                   'authentication/inscription.html',
                   context={'form': form})
+
 
 def logout_page(request):
     # Fonction de deconnextion
@@ -36,7 +37,7 @@ def login_page(request):
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
         if form.is_valid():
-            # Appel de la fonction authenticate 
+            # Appel de la fonction authenticate
             user = authenticate(
                 # Récupére les données puis les efface
                 username=form.cleaned_data['username'],
@@ -49,6 +50,7 @@ def login_page(request):
             # Sinon
             else:
                 message = 'Identifiants invalides.'
+
     return render(request,
                   'authentication/connexion.html',
                   context={'form': form, 'message': message})
