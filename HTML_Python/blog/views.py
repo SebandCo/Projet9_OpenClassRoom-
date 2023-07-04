@@ -4,6 +4,7 @@ from . import forms, models
 from django.shortcuts import get_object_or_404
 
 # ------------- Gestion des critiques ----------------
+@login_required
 def creation_critique_vide(request):
     critique_form = forms.CritiqueForm()
     if request.method == "POST":
@@ -24,6 +25,7 @@ def creation_critique_vide(request):
                   "blog/creation_critique_vide.html",
                   context = {"critique_form": critique_form})
 
+@login_required
 def creation_critique_liee(request, ticket_id):
     critique_form = forms.CritiqueLieeForm()
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
@@ -47,8 +49,8 @@ def creation_critique_liee(request, ticket_id):
                   context = {"critique_form": critique_form,
                              "ticket":ticket})
 
-def modification_critique(request, ticket_id, critique_id):
-    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+@login_required
+def modification_critique(request, critique_id):
     critique = get_object_or_404(models.Critique, id=critique_id)
     critique_form = forms.CritiqueLieeForm(instance=critique)
     if request.method == "POST":
@@ -61,26 +63,34 @@ def modification_critique(request, ticket_id, critique_id):
                 # On vérifie que le formulaire est valide
                 if critique_form.is_valid():
                     critique_form.save()
-                    return redirect("home")
-            else:
-                return redirect("home")
+            return redirect("home")
     return render(request,
                   "blog/modification_critique.html",
                   context = {"critique_form":critique_form,
-                             "ticket":ticket})
+                             "ticket":critique.ticket})
 
-
+@login_required
 def suppression_critique(request, critique_id):
     critique = models.Critique.objects.get(id=critique_id)
     if request.method == "POST":
-        critique.delete()
+        # Controle que la personne qui supprime est bien le createur de la critique
+        if request.user == critique.auteur:
+            # Diminue de 1 le nombre de critique du ticket
+            critique.ticket.nombre_critique -= 1
+            critique.ticket.save()
+            # Diminue de 1 le nombre de critique posté par l'utilisateur
+            request.user.nombre_critique -= 1
+            request.user.save()
+            #Supprime la critique
+            critique.delete()
         return redirect("home")
     
     return render (request,
-                   "blog/suppresion_critique.html",
+                   "blog/suppression_critique.html",
                    context = {"critique":critique})
 
 # ------------- Gestion des tickets ----------------
+@login_required
 def creation_ticket(request):
     print(dir(request.user))
     ticket_form = forms.TicketForm()
@@ -100,6 +110,7 @@ def creation_ticket(request):
                   "blog/creation_ticket.html",
                   context = {"ticket_form": ticket_form})
 
+@login_required
 def modification_ticket(request, ticket_id):
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
     ticket_form = forms.TicketForm(instance=ticket)
@@ -113,9 +124,7 @@ def modification_ticket(request, ticket_id):
                 # On vérifie que le formulaire est valide
                 if ticket_form.is_valid():
                     ticket_form.save()
-                    return redirect("home")
-            else:
-                return redirect("home")
+            return redirect("home")
     return render(request,
                   "blog/modification_ticket.html",
                   context = {"ticket_form": ticket_form})
@@ -141,3 +150,20 @@ def affichage_dun_ticket(request, ticket_id):
                   context={"ticket":ticket_choisi,
                            "critiques":critiques,
                            "critique_existante":critique_existante})
+
+@login_required
+def suppression_ticket(request, ticket_id):
+    ticket = models.Ticket.objects.get(id=ticket_id)
+    if request.method == "POST":
+        # Controle que la personne qui supprime est bien le createur du ticket
+        if request.user == ticket.auteur:
+            # Diminue de 1 le nombre de ticket posté par l'utilisateur
+            request.user.nombre_ticket -= 1
+            request.user.save()
+            #Supprime le ticket
+            ticket.delete()
+        return redirect("home")
+    
+    return render (request,
+                   "blog/suppression_ticket.html",
+                   context = {"ticket":ticket})

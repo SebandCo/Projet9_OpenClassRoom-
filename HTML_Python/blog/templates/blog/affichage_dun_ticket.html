@@ -22,12 +22,15 @@
                     title ="{{ticket.titre_ticket}}">
                 </td>
                 <td>{{ticket.auteur}}<br><br>
-                    <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
                     {% if request.user != ticket.auteur%}
+                        <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
                         <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>
-                    <!--Sinon l'auteur est l'utilisateur actuelle alors permission de modifier le ticket-->
                     {% else %}
+                        <!--Si l'auteur est l'utilisateur actuelle alors permission de modifier le ticket-->
                         <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
+                        <br>
+                        <!--Si l'auteur est l'utilisateur actuelle alors permission de supprimer le ticket-->
+                        <a class="bouton" href="{% url 'suppression_ticket' ticket.id%}">Supprimer mon ticket</a>
                     {% endif %}
                 </td>
             </tr>
@@ -42,8 +45,8 @@
         <!--Affichage des critiques-->
         <table class="tableau">
             <caption>Critiques</caption>
-            <!--Si il y a des critiques-->
             {% if critiques %}
+                <!--Si il y a des critiques-->
                 {% for critique in critiques %}
                     <tr>
                         <th class="titre">Note</th>
@@ -54,12 +57,15 @@
                         <td>{{critique.note}}</td>
                         <td>{{critique.titre_critique}}</td>
                         <td>{{critique.auteur}}<br>
-                            <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
                             {% if request.user != critique.auteur%}
+                                <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
                                 <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>
-                            <!--Sinon l'auteur est l'utilisateur actuelle alors permission de modifier la critique-->
                             {% else %}
-                                <a class="bouton" href="{% url 'modification_critique' ticket.id critique.id%}">Modifier ma critique</a>
+                                <!--Si l'auteur est l'utilisateur actuelle alors permission de modifier la critique-->
+                                <a class="bouton" href="{% url 'modification_critique' critique.id%}">Modifier ma critique</a>
+                                <br>
+                                <!--Si l'auteur est l'utilisateur actuelle alors permission de supprimer la critique-->
+                                <a class="bouton" href="{% url 'suppression_critique' critique.id%}">Supprimer ma critique</a>
                             {% endif %}
                         </td>
                     </tr>
@@ -73,8 +79,8 @@
                         
                     </tr>
                 {% endfor %}
-            <!--Si il n'y en a pas-->
             {% else %}
+                    <!--Si il n'y a pas de critique-->
                 <tr>
                     <th>Il n'y a pas encore de critique pour ce ticket</th>
                 </tr>
@@ -82,8 +88,8 @@
             {% endif %}
         </table>
     </form>
-    <!--Empeche l'utilisateur qui a déjà mis une critique d'acceder au lien pour en remettre une-->
     {% if critique_existante == False %}
+        <!--Si l'utilisateur n'a pas encore mis de critique alors il peux en mettre une-->
         <a class="bouton" href="{% url 'creation_critique_liee' ticket.id%}">Créer une critique</a>
     {% endif %}
     <a class="bouton" onclick="history.back();">Retour</a>

@@ -1,0 +1,44 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Suppression du ticket : {{ticket.titre_ticket}}
+{% endblock en-tete %}
+
+{% block content %}
+
+
+<!--Affichage du ticket à supprimer--> 
+<table class="tableau">
+    <caption>Le ticket</caption>
+    <tr>
+        <th class="titre">Titre</th>
+        <th class="titre">Illustration</th>
+        <th class="titre">Auteur</th>
+    </tr>
+    <tr>
+        <td>{{ticket.titre_ticket}}</td>
+        <td rowspan="5">
+            <img src="{{ ticket.illustration.url }}"
+            alt="Image du ticket : {{ticket.titre_ticket}}"
+            title ="{{ticket.titre_ticket}}">
+        </td>
+        <td>{{ticket.auteur}}</td>
+    </tr>
+    <tr>
+        <td class="titre">Description</td>
+    </tr>
+    <tr>
+        <td>{{ticket.description}}</td>
+    </tr>
+</table>
+
+<p> Etes vous sur de vouloir supprimer ce ticket ?</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Supprimer">
+</form>
+<a class="bouton" onclick="history.back();">Retour</a>                
+
+            
+{% endblock content %}
