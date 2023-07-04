@@ -47,6 +47,39 @@ def creation_critique_liee(request, ticket_id):
                   context = {"critique_form": critique_form,
                              "ticket":ticket})
 
+def modification_critique(request, ticket_id, critique_id):
+    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    critique = get_object_or_404(models.Critique, id=critique_id)
+    critique_form = forms.CritiqueLieeForm(instance=critique)
+    if request.method == "POST":
+        if "edit_critique" in request.POST:
+            # Controle que la personne qui modifie est bien le createur de la critique
+            if request.user == critique.auteur:
+                critique_form = forms.CritiqueLieeForm(request.POST,
+                                                       request.FILES,
+                                                       instance=critique)
+                # On vérifie que le formulaire est valide
+                if critique_form.is_valid():
+                    critique_form.save()
+                    return redirect("home")
+            else:
+                return redirect("home")
+    return render(request,
+                  "blog/modification_critique.html",
+                  context = {"critique_form":critique_form,
+                             "ticket":ticket})
+
+
+def suppression_critique(request, critique_id):
+    critique = models.Critique.objects.get(id=critique_id)
+    if request.method == "POST":
+        critique.delete()
+        return redirect("home")
+    
+    return render (request,
+                   "blog/suppresion_critique.html",
+                   context = {"critique":critique})
+
 # ------------- Gestion des tickets ----------------
 def creation_ticket(request):
     print(dir(request.user))
@@ -75,8 +108,8 @@ def modification_ticket(request, ticket_id):
             # Controle que la personne qui modifie est bien le createur du ticket
             if request.user == ticket.auteur:
                 ticket_form = forms.TicketForm(request.POST,
-                                            request.FILES,
-                                            instance=ticket)
+                                               request.FILES,
+                                               instance=ticket)
                 # On vérifie que le formulaire est valide
                 if ticket_form.is_valid():
                     ticket_form.save()

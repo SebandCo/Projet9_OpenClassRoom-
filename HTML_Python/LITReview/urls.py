@@ -40,11 +40,15 @@ urlpatterns = [
     # URL affichage des tickets
     path("blog/affichage_des_tickets/", blog.views.affichage_des_tickets, name="affichage_des_tickets"),
     path("blog/affichage_dun_ticket/<int:ticket_id>/", blog.views.affichage_dun_ticket, name="affichage_dun_ticket"),
+    # URL modification des tickets/critiques
+    path("blog/modification_critique/<int:ticket_id>/<int:critique_id>/", blog.views.modification_critique, name="modification_critique"),
     path("blog/modification_ticket/<int:ticket_id>/", blog.views.modification_ticket, name="modification_ticket"),
+    # URL suppression des tickets/critiques
+    path("blog/suppression_critique/<int:critique_id>/", blog.views.suppression_critique, name="suppression_critique"),
     # URL gestion des utilisateurs
     path("connected/gestion_utilisateur/", connected.views.gestion_utilisateur, name="gestion_utilisateur"),
     # URL abonnement utilisateur
-    path("connected/abonnement_utilisateur/", connected.views.abonnement_utilisateur, name="abonnement_utilisateur")
+    path("connected/abonnement_utilisateur/", connected.views.abonnement_utilisateur, name="abonnement_utilisateur"),
 ]
 
 if settings.DEBUG:

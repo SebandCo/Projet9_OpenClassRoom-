@@ -57,6 +57,9 @@
                             <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
                             {% if request.user != critique.auteur%}
                                 <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>
+                            <!--Sinon l'auteur est l'utilisateur actuelle alors permission de modifier la critique-->
+                            {% else %}
+                                <a class="bouton" href="{% url 'modification_critique' ticket.id critique.id%}">Modifier ma critique</a>
                             {% endif %}
                         </td>
                     </tr>

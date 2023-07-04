@@ -1,0 +1,40 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Suppression de la critique : {{critique.titre_critique}}
+{% endblock en-tete %}
+
+{% block content %}
+
+
+<!--Affichage de la critique à supprimer--> 
+<table class="tableau">
+    <caption>Critiques</caption>
+    <tr>
+        <th class="titre">Note</th>
+        <th class="titre">Titre</th>
+        <th class="titre">Auteur</th>
+    </tr>
+    <tr>
+        <td>{{critique.note}}</td>
+        <td>{{critique.titre_critique}}</td>
+        <td>{{critique.auteur}}</td>
+    </tr>
+    <tr>
+        <td colspan="3" class="titre">Commentaire</td>
+    </tr>
+    <tr>
+        <td colspan="3">{{critique.commentaire}}</td>
+    </tr>
+</table>
+
+<p> Etes vous sur de vouloir supprimer cette critique ?</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Supprimer">
+</form>
+<a class="bouton" onclick="history.back();">Retour</a>                
+
+            
+{% endblock content %}

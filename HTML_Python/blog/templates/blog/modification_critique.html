@@ -1,0 +1,40 @@
+{% extends 'base_connecte.html' %}
+
+{% block en-tete %}
+    Modification de la critique : {{critique.titre_critique}}
+{% endblock en-tete %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data" class="blog" class="creation-critique">
+    <!--Affichage du ticket-->
+    <table class="tableau">
+        <caption>Le ticket</caption>
+        <tr>
+            <th class="titre">Titre</th>
+            <th class="titre">Illustration</th>
+            <th class="titre">Auteur</th>
+        </tr>
+        <tr>
+            <td>{{ticket.titre_ticket}}</td>
+            <td rowspan="5">
+                <img src="{{ ticket.illustration.url }}"
+                alt="Image du ticket : {{ticket.titre_ticket}}"
+                title ="{{ticket.titre_ticket}}">
+            </td>
+            <td>{{ticket.auteur}}
+            </td>
+        </tr>
+        <tr>
+            <td class="titre">Description</td>
+        </tr>
+        <tr>
+            <td>{{ticket.description}}</td>
+        </tr>
+    </table>
+    <!-- On rajoute la modification de la critique -->
+        {{critique_form.as_p}}
+        {% csrf_token %}
+        <button type="submit">Modifier la critique</button>
+    </form>
+    <a class="bouton" onclick="history.back();">Annuler</a>
+{% endblock content %}

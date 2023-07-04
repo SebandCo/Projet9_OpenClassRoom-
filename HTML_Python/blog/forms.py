@@ -29,13 +29,16 @@ class TicketEtCritiqueForm(forms.ModelForm):
 class CritiqueForm(forms.ModelForm):
     # Permet la modification du ticket
     edit_critique = forms.BooleanField(widget=forms.HiddenInput,
-                                   initial=True)
+                                       initial=True)
     class Meta :
         model = models.Critique
         exclude = ("date_creation","auteur")
         widgets = {'note': forms.RadioSelect()}
 
 class CritiqueLieeForm(forms.ModelForm):
+    # Permet la modification du ticket
+    edit_critique = forms.BooleanField(widget=forms.HiddenInput,
+                                       initial=True)
     class Meta :
         model = models.Critique
         exclude = ("date_creation","auteur","ticket")
