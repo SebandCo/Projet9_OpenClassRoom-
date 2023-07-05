@@ -24,7 +24,8 @@
                 <td>{{ticket.auteur}}<br><br>
                     {% if request.user != ticket.auteur%}
                         <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
-                        <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>
+                        <!--<a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>-->
+                        <p>Suivre</p>
                     {% else %}
                         <!--Si l'auteur est l'utilisateur actuelle alors permission de modifier le ticket-->
                         <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
@@ -59,7 +60,8 @@
                         <td>{{critique.auteur}}<br>
                             {% if request.user != critique.auteur%}
                                 <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
-                                <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>
+                                <!--<a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>-->
+                                <p>Suivre</p>
                             {% else %}
                                 <!--Si l'auteur est l'utilisateur actuelle alors permission de modifier la critique-->
                                 <a class="bouton" href="{% url 'modification_critique' critique.id%}">Modifier ma critique</a>

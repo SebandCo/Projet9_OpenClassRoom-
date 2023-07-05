@@ -36,7 +36,6 @@ def gestion_utilisateur(request):
         # Récupére la liste des roles de la méthode POST
         liste_role = request.POST.getlist('role')
         rang = 0
-        print(request.user.role)
         if request.user.role == "Administrateur":
             for utilisateur in utilisateurs:
                 # Ne modifie que les autres utilisateurs

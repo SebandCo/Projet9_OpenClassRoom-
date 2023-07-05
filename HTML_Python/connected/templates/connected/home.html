@@ -44,7 +44,7 @@
                 <!-- Si la date du dernier log est inférieur à la création du critique 
                     Alors rajoute la notion de "nouveau" -->
                 {% if request.user.last_login < critique.date_creation %}
-                    <td class="nouveau">nouveau</td>
+                    <td class="nouveau">Nouveau</td>
                 {% else %}
                     <td></td>
                 {% endif %}

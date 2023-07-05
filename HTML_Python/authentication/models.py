@@ -18,10 +18,10 @@ class User(AbstractUser):
                                                  verbose_name="Nombre de critique")
     role = models.CharField(max_length=30,
                             choices=ROLE_CHOICES,
-                            default=UTILISATEUR)
-
+                            default="Utilisateur")
     abonnement = models.ManyToManyField('self',
-                                        symmetrical=False)
+                                        symmetrical=False,
+                                        blank=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -31,10 +31,3 @@ class User(AbstractUser):
         elif self.role == "Administrateur":
             group = Group.objects.get(name='Administrateur')
             group.user_set.add(self)
-
-            """if self.role == "Utilisateur":
-            group = Group.objects.get(name='Utilisateur')
-            group.user_set.add(self)
-        elif self.role == "Administrateur":
-            group = Group.objects.get(name='Administrateur')
-            group.user_set.add(self)"""

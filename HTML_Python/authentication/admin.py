@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from authentication.models import User
+from blog.models import Ticket, Critique
+
+
+admin.site.register(User)
+admin.site.register(Ticket)
+admin.site.register(Critique)
