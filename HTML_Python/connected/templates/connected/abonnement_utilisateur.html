@@ -21,19 +21,15 @@
                             <td>{{utilisateur.username}}</td>
                             <td>{{utilisateur.nombre_ticket}}</td>
                             <td>{{utilisateur.nombre_critique}}</td>
-                            {% if utilisateur in abonnements%}
-                                <td>
-                                    <button type="submit" name="ne_plus_suivre" value={{utilisateur.id}}>
-                                        Ne plus suivre
-                                    </button>
-                                </td>
+                            <td>{% if utilisateur in abonnements%}
+                                <button type="submit" name="ne_plus_suivre" value={{utilisateur.id}}>
+                                    Ne plus suivre
+                                </button>
                             {% else %}
-                                <td>
-                                    <button type="submit" name="suivre" value={{utilisateur.id}}>
-                                        Suivre
-                                    </button>
-                                </td>
-                            {% endif %}
+                                <button type="submit" name="suivre" value={{utilisateur.id}}>
+                                    Suivre
+                                </button>
+                            {% endif %}</td>
                         </tr>
                     {% endif %}    
                 {% endfor %}

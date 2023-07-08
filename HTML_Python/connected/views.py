@@ -72,7 +72,6 @@ def abonnement_utilisateur(request):
     abonnements = request.user.abonnement.all()
     # Regarde si c'est une méthode POST
     if request.method == "POST":
-        print(request.POST)
         # si le bouton est "suivre" on rajoute à la base de donnée
         if request.POST.get("suivre"):
             request.user.abonnement.add(request.POST.get("suivre"))

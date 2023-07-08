@@ -152,6 +152,19 @@ def affichage_des_tickets(request):
 def affichage_dun_ticket(request, ticket_id):
     ticket_choisi = get_object_or_404(models.Ticket, id=ticket_id)
     critiques = models.Critique.objects.filter(ticket=ticket_choisi)
+    # Gestion des abonnements
+    abonnements = request.user.abonnement.all()
+    # Regarde si c'est une méthode POST
+    if request.method == "POST":
+        # si le bouton est "suivre" on rajoute à la base de donnée
+        if request.POST.get("suivre"):
+            print("test1")
+            request.user.abonnement.add(request.POST.get("suivre"))
+        # Si le bouton est "ne plus suivre" on enleve de la base de donnée
+        elif request.POST.get("ne_plus_suivre"):
+            print("test2")
+            request.user.abonnement.remove(request.POST.get("ne_plus_suivre"))
+
     # Vérifie que l'utilisateur n'a pas déjà mis une critique
     critique_existante = False
     for critique in critiques:
@@ -162,7 +175,8 @@ def affichage_dun_ticket(request, ticket_id):
                   "blog/affichage_dun_ticket.html",
                   context={"ticket": ticket_choisi,
                            "critiques": critiques,
-                           "critique_existante": critique_existante})
+                           "critique_existante": critique_existante,
+                           "abonnements":abonnements})
 
 
 @login_required

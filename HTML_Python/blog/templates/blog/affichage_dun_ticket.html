@@ -23,9 +23,15 @@
                 </td>
                 <td>{{ticket.auteur}}<br><br>
                     {% if request.user != ticket.auteur%}
-                        <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
-                        <!--<a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>-->
-                        <p>Suivre</p>
+                        {% if ticket.auteur in abonnements%}
+                            <button type="submit" name="ne_plus_suivre" value={{ticket.auteur.id}}>
+                                Ne plus suivre
+                            </button>
+                        {% else %}
+                            <button type="submit" name="suivre" value={{ticket.auteur.id}}>
+                                Suivre
+                            </button>
+                        {% endif %}
                     {% else %}
                         <!--Si l'auteur est l'utilisateur actuelle alors permission de modifier le ticket-->
                         <a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Modifier mon ticket</a>
@@ -59,9 +65,15 @@
                         <td>{{critique.titre_critique}}</td>
                         <td>{{critique.auteur}}<br>
                             {% if request.user != critique.auteur%}
-                                <!--Si l'auteur est différent de l'utilisateur actuelle alors permission de le suivre-->
-                                <!--<a class="bouton" href="{% url 'modification_ticket' ticket.id%}">Suivre</a>-->
-                                <p>Suivre</p>
+                                {% if critique.auteur in abonnements%}
+                                    <button type="submit" name="ne_plus_suivre" value={{critique.auteur.id}}>
+                                        Ne plus suivre
+                                    </button>
+                                {% else %}
+                                    <button type="submit" name="suivre" value={{critique.auteur.id}}>
+                                        Suivre
+                                    </button>
+                                {% endif %}
                             {% else %}
                                 <!--Si l'auteur est l'utilisateur actuelle alors permission de modifier la critique-->
                                 <a class="bouton" href="{% url 'modification_critique' critique.id%}">Modifier ma critique</a>
@@ -89,6 +101,7 @@
                 
             {% endif %}
         </table>
+        {% csrf_token %}
     </form>
     {% if critique_existante == False %}
         <!--Si l'utilisateur n'a pas encore mis de critique alors il peux en mettre une-->
