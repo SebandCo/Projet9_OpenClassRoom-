@@ -21,8 +21,9 @@ class User(AbstractUser):
                             default="Utilisateur")
     abonnement = models.ManyToManyField('self',
                                         symmetrical=False,
-                                        blank=True)
-
+                                        blank=True,
+                                        related_name="followed_by")
+    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.role == "Utilisateur":

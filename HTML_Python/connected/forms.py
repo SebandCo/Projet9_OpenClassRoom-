@@ -11,10 +11,3 @@ class ModificationUtilisateur(forms.ModelForm):
         # Import du modèle User
         model = User
         fields = ["role"]
-
-
-class FollowerForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ["abonnement"]

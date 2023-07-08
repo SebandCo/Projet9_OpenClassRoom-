@@ -2,16 +2,12 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from . import forms, models
 from django.shortcuts import get_object_or_404
-from authentication.models import User
 
 
 # ------------- Gestion des critiques ----------------
 @login_required
 def creation_critique_vide(request):
     critique_form = forms.CritiqueForm()
-    utilisateur = get_object_or_404(User, id=2)
-    print(dir(utilisateur.abonnement))
-    print((utilisateur.abonnement.values_list))
     if request.method == "POST":
         critique_form = forms.CritiqueForm(request.POST)
         # On vérifie que le formulaire est valide

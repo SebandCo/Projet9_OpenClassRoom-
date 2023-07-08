@@ -7,7 +7,6 @@
 {% block content %}
     <h2>Suivre des utilisateurs</h2>
         <form method="post" enctype="multipart/form-data" class="tableau">
-            <!--
             <table>
                 <tr>
                     <th>Utilisateur</th>
@@ -15,20 +14,30 @@
                     <th>Nombre de critique</th>
                     <th>Abonnement</th>
                 </tr>
-                
-                {%for utilisateur in utilisateurs%}
-                    <tr>
-                        <td>{{utilisateur.username}}</td>
-                        <td>{{utilisateur.nombre_ticket}}</td>
-                        <td>{{utilisateur.nombre_critique}}</td>
-                        <td>{{utilisateur.abonnement}}</td>
-                        <td>{{follower_form}}</td>
-                    </tr>
+            
+                {% for utilisateur in utilisateurs %}
+                    {% if utilisateur != request.user %}
+                        <tr>
+                            <td>{{utilisateur.username}}</td>
+                            <td>{{utilisateur.nombre_ticket}}</td>
+                            <td>{{utilisateur.nombre_critique}}</td>
+                            {% if utilisateur in abonnements%}
+                                <td>
+                                    <button type="submit" name="ne_plus_suivre" value={{utilisateur.id}}>
+                                        Ne plus suivre
+                                    </button>
+                                </td>
+                            {% else %}
+                                <td>
+                                    <button type="submit" name="suivre" value={{utilisateur.id}}>
+                                        Suivre
+                                    </button>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}    
                 {% endfor %}
             </table>
-            -->
-            {{ follower_form.as_p }}
             {% csrf_token %}
-        <button type="submit" >Confirmer</button>
     </form>
 {% endblock content %}

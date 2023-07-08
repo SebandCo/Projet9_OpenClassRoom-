@@ -50,6 +50,7 @@ urlpatterns = [
     path("connected/gestion_utilisateur/", connected.views.gestion_utilisateur, name="gestion_utilisateur"),
     # URL abonnement utilisateur
     path("connected/abonnement_utilisateur/", connected.views.abonnement_utilisateur, name="abonnement_utilisateur"),
+    path("connected/follow_user/", connected.views.follow_user, name="follow_user")
 ]
 
 if settings.DEBUG:

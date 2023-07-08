@@ -69,13 +69,33 @@ def home(request):
 @login_required
 def abonnement_utilisateur(request):
     utilisateurs = User.objects.all()
-    follower_form = forms.FollowerForm(instance=request.user)
+    abonnements = request.user.abonnement.all()
+    # Regarde si c'est une méthode POST
     if request.method == "POST":
-        follower_form = forms.FollowerForm(request.POST, instance=request.user)
-        if follower_form.is_valid():
-            follower_form.save()
-            return redirect("home")
+        print(request.POST)
+        # si le bouton est "suivre" on rajoute à la base de donnée
+        if request.POST.get("suivre"):
+            request.user.abonnement.add(request.POST.get("suivre"))
+        # Si le bouton est "ne plus suivre" on enleve de la base de donnée
+        elif request.POST.get("ne_plus_suivre"):
+            request.user.abonnement.remove(request.POST.get("ne_plus_suivre"))
     return render(request,
                   "connected/abonnement_utilisateur.html",
                   context={"utilisateurs": utilisateurs,
-                           "follower_form": follower_form})
+                           "abonnements": abonnements})
+
+
+def follow_user(request):
+    follow_user = User.objects.get(pk=request.user.id)
+
+    if request.method == "POST":
+        current_user_profile = request.user
+        action = request.POST['follow']
+        if action == "unfollow":
+            current_user_profile.follows.remove(follow_user)
+        elif action == "follow":
+            current_user_profile.follows.add(follow_user)
+
+    return render(request,
+                  'connected/newuser_detail.html',
+                  {"follow_user": follow_user})
