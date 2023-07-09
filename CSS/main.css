@@ -229,4 +229,27 @@
   position: relative;
   top: 4.5em;
   width: 100%;
+}
+
+.tableau_accueil {
+  table-layout: auto;
+  width: 100%;
+  border-collapse: separate;
+}
+.tableau_accueil .titre {
+  font-weight: bold;
+}
+.tableau_accueil tr {
+  text-align: center;
+}
+.tableau_accueil .follower {
+  background-color: rgb(250, 78, 78);
+}
+
+.tableau_ticket {
+  border: 3px solid blue;
+}
+
+.tableau_critique {
+  border: 3px solid green;
 }/*# sourceMappingURL=main.css.map */

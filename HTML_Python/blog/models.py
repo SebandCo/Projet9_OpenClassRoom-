@@ -57,3 +57,6 @@ class Critique(models.Model):
                                       verbose_name="Titre de la critique")
     commentaire = models.TextField(max_length=8192)
     date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.titre_critique}'

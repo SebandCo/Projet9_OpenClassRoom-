@@ -5,53 +5,88 @@
 {% endblock en-tete %}
 
 {% block content %}
+    <h2>Voici les dernières nouveautés</h2>
     <!-- Affiche la liste des tickets -->
-    <table class="tableau">
-        <caption>Voici les derniers tickets postés</caption>
-        <tr>
-            <th>Nouveauté</th>
-            <th>Nom du ticket</th>
-            <th>Nombre de critique</th>
-            <th>Aperçu</th>
-        </tr>
-        {% for ticket in tickets %}
-            <tr>
-                <!-- Si la date du dernier log est inférieur à la création du ticket
-                    Alors rajoute la notion de "nouveau" -->
-                {% if request.user.last_login < ticket.date_creation %}
-                    <td class="nouveau">Nouveau</td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-                <td>{{ticket.titre_ticket}}</td>
-                <td>{{ticket.nombre_critique}}</td>
-                <td> <a href="{% url 'affichage_dun_ticket' ticket.id %}">Aperçu</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% for article in flux_global %}
+        {% if article.titre_ticket %}
+            <table class="tableau_accueil tableau_ticket">
+                <tr>
+                    {% if request.user != article.auteur%}
+                        <th colspan="4">Ticket posté le {{article.date_creation}} par {{article.auteur}}</th>
+                    {% else %}
+                        <th colspan="4">Ticket que vous avez posté le {{article.date_creation}}</th>
+                    {% endif %}                    
+                </tr>
+                <tr>
+                    {% if request.user != article.auteur%}
+                        {% if article.auteur in abonnements%}
+                            <td class="follower" rowspan="4">
+                                Ceci <br>
+                                a été posté <br>
+                                par un <br>
+                                utilisateur<br>
+                                que vous suivez
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                    <td class="titre">Titre</td>
+                    <td rowspan="4">
+                        <img src="{{ article.illustration.url }}"
+                        alt="Image du ticket : {{article.titre_ticket}}"
+                        title ="{{article.titre_ticket}}">
+                    </td>
+                    <td rowspan="4"> <a href="{% url 'affichage_dun_ticket' article.id %}">Aperçu</td>
+                </tr>
+                <tr>
+                    <td>{{article.titre_ticket}}</td>
+                </tr>
+                <tr>
+                    <td class="titre">Description</td>
+                </tr>
+                <tr>
+                    <td>{{article.description}}</td>
+                </tr>
+            </table>
 
-    <!-- Affiche la liste des critiques -->
-    <table class="tableau">
-        <caption>Voici les dernières critiques postées</caption>
-        <tr>
-            <th>Nouveauté</th>
-            <th>Nom de la critique</th>
-            <th>Lié au ticket</th>
-            <th>Aperçu</th>
-        </tr>
-        {% for critique in critiques %}
-            <tr>
-                <!-- Si la date du dernier log est inférieur à la création du critique 
-                    Alors rajoute la notion de "nouveau" -->
-                {% if request.user.last_login < critique.date_creation %}
-                    <td class="nouveau">Nouveau</td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-                <td>{{critique.titre_critique}}</td>
-                <td>{{critique.ticket.titre_ticket}}</td>
-                <td> <a href="{% url 'affichage_dun_ticket' critique.ticket.id %}">Aperçu</td>
-            </tr>
-        {% endfor %}
-    </table>
+        {% elif article.titre_critique %}
+            <table class="tableau_accueil tableau_critique">
+                <tr>
+                    {% if request.user != article.auteur%}
+                        <th colspan="4">Critique postée le {{article.date_creation}} par {{article.auteur}}<br>
+                                        En réponse au ticket : {{article.ticket}}</th>
+                    {% else %}
+                        <th colspan="4">Critique que vous avez posté le {{article.date_creation}}<br>
+                                        En réponse au ticket : {{article.ticket}}</th>
+                    {% endif %}                    
+                </tr>
+                <tr>
+                    {% if request.user != article.auteur%}
+                        {% if article.auteur in abonnements%}
+                            <td class="follower" rowspan="4">
+                                Ceci <br>
+                                a été posté <br>
+                                par un <br>
+                                utilisateur<br>
+                                que vous suivez
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                    <th class="titre">Note</th>
+                    <th class="titre">Titre</th>
+                    <td rowspan="4"> <a href="{% url 'affichage_dun_ticket' article.ticket.id %}">Aperçu</td>
+                </tr>
+                <tr>
+                    <td>{{article.note}}</td>
+                    <td>{{article.titre_critique}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="titre">Commentaire</td>
+                </tr>
+                <tr>
+                    <td colspan="2">{{article.commentaire}}</td>
+                </tr>
+            </table>
+        
+        {% endif %}
+    {% endfor %}
 {% endblock content %}

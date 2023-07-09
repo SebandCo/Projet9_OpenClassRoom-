@@ -3,3 +3,27 @@
     top : $hauteur-en-tete;
     width:100%;
 }
+
+.tableau_accueil{
+    table-layout: auto;
+    width : 100%;
+    border-collapse: separate;
+    
+    .titre{
+        font-weight: bold;
+    }
+    tr{
+        text-align: center;
+    }
+    .follower{
+        background-color : $couleur-follower; 
+    }
+}
+
+.tableau_ticket{
+    border: 3px solid $couleur-ticket;
+}
+
+.tableau_critique{
+    border: 3px solid $couleur-critique;
+}

@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from authentication.models import User
 from . import forms
 from blog.models import Ticket, Critique
+from itertools import chain
+from operator import attrgetter
 
 
 @login_required
@@ -58,12 +60,20 @@ def home(request):
     # Tri des tickets et critiques par ordre décroissant de création
     # Donc du plus rescent ou plus ancien
     # N'affiche que les 5 premieres réponses
-    tickets = Ticket.objects.all().order_by("-date_creation")[:5]
-    critiques = Critique.objects.all().order_by("-date_creation")[:5]
+    # tickets = Ticket.objects.all().order_by("-date_creation")[:5]
+    tickets = Ticket.objects.all()
+    critiques = Critique.objects.all()
+    abonnements = request.user.abonnement.all()
+    # Regroupe les tickets et les critiques dans la meme liste
+    # et les tris par date de création
+    flux_global = []
+    flux_global = sorted(chain(tickets, critiques),
+                         key=attrgetter('date_creation'),
+                         reverse=True)
     return render(request,
                   "connected/home.html",
-                  context={"tickets": tickets,
-                           "critiques": critiques})
+                  context={"flux_global":flux_global,
+                           "abonnements": abonnements})
 
 
 @login_required
