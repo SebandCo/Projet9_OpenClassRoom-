@@ -11,16 +11,31 @@ Le projet est un MVP, il est donc d'aspect un peu brut
 
 # Installation
 ## Pré-requis
-Dans un environnement dédié installer les packages
+Créer un environnement dédié
+```
+$ python -m venv env
+```
+A l'intérieur de l'environnement installer les packages
 ```
 $ pip install -r requirements.txt
 ```
+## La base de donnée
+La base de donnée est existante dans le dépot au format sqlite3
+
+Vous pouvez néanmoins un créer un nouvelle en :
+1. Supprimant le fichier db.sqlite3
+1. Créant un nouvelle base de donnée
+```
+python manage.py migrate
+```
+
 ## Lancement du programme
 Le programme se lance grâce à la commande
 ```
 python manage.py runserver
 ```
-Puis en allant sur un navigateur web : http://127.0.0.1:8000/
+Puis en allant sur un navigateur web :
+[LITReview] (http://127.0.0.1:8000/)
 
 # Contribution
 Commençant en programmation Python, et notamment Django, je suis preneur :
